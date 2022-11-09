@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import "../globals.css";
+import { IBook } from "../consts/Interfaces";
 
 async function getBooks() {
   const res = await fetch("https://localhost:7147/books");
@@ -12,10 +13,17 @@ export default function BooksPage() {
   const [page, setPage] = useState(1);
   const { data, status } = useQuery(["books", page], getBooks);
 
+  const books = data?.reduce((acc: any, book: IBook) => {
+    if (!acc.find((u: IBook) => u.title === book.title)) {
+      acc.push(book);
+    }
+    return acc;
+  }, []);
+
   return (
     <div>
       <div className="grid grid-cols-4 mx-auto mt-5">
-        {data?.map((book: any) => {
+        {books?.map((book: any) => {
           return <Book key={book.id} book={book} />;
         })}
       </div>
@@ -38,7 +46,7 @@ const Book = ({ book }: any) => {
       : null;
 
   return (
-    <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium">
+    <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium relative">
       <Link href={`/books/${id}`}>
         {" "}
         <img
@@ -52,7 +60,7 @@ const Book = ({ book }: any) => {
       <p className="text-xs text-gray-400">{condition}</p>
       <p className="text-2xl text-blue-500">£{price}</p>
       <button
-        className=" hover:brightness-60 h-10 w-36 mt-auto bg-blue-900
+        className="bottom-1 left-0 absolute hover:brightness-60 h-10 w-36 mt-auto bg-blue-900
        rounded-md text-white"
       >
         Add to Cart

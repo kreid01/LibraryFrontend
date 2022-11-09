@@ -31,23 +31,7 @@ const updateBook = async (data: IBook) => {
   console.log(data);
 
   const { data: response } = await axios.put<IBook>(
-    `https://localhost:7147/books`,
-    {
-      params: {
-        Id: id,
-        Title: title,
-        Author: author,
-        StockNumber: stockNumber,
-        Cover: cover,
-        Price: price,
-        Quality: quality,
-        Genre: genre,
-        Summary: summary,
-        IsAvailable: isAvailable,
-        Pages: pages,
-        Published: published,
-      },
-    }
+    `https://localhost:7147/books?Id=${id}&Title=${title}&StockNumber=${stockNumber}&Quality=${quality}&Author=${author}&Pages=${pages}&Price=${price}&Genre=${genre}&Summary=${summary}&Published=${published}&IsAvailable=${isAvailable}&Cover=${cover}`
   );
   return response;
 };
@@ -73,6 +57,10 @@ export default function BookPage({ params }: any) {
       queryClient.invalidateQueries("create");
     },
   });
+
+  const deleteBook = () => {
+    axios.delete(`https://localhost:7147/books/${data?.id}`);
+  };
 
   const editBook = () => {
     setIsEditing((prevState) => !prevState);
@@ -107,7 +95,19 @@ export default function BookPage({ params }: any) {
   return isEditing ? (
     <div className="w-[70vw] mx-auto">
       <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex">
-        <img className="w-64 rounded-md" src={cover} alt="" />
+        <div className="flex-col">
+          <img
+            className="w-64 h-96 rounded-md"
+            src={bookToUpdate?.cover}
+            alt=""
+          />
+          <input
+            className="text-xl text-blue-500 mt-3 h-7"
+            name="cover"
+            value={bookToUpdate?.cover}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </div>
         <div className="font-bold ml-10">
           <input
             className="text-2xl text-blue-900"
@@ -125,7 +125,7 @@ export default function BookPage({ params }: any) {
             name="price"
             value={bookToUpdate?.price}
             onChange={(e) => handleChange(e)}
-            className="mt-5 text-3xl "
+            className="mt-5 mb-1 text-3xl w-20"
           ></input>
           <p className="text-sm font-normal">
             Condition -
@@ -140,8 +140,12 @@ export default function BookPage({ params }: any) {
               <option value="N">New</option>
             </select>
           </p>
-          <button className=" hover:brightness-60 h-10 w-64 mt-24 bg-blue-900 rounded-md text-white">
-            Add to Cart
+
+          <button
+            onClick={deleteBook}
+            className=" hover:brightness-60 h-10 w-64 mt-24 bg-red-900 rounded-md text-white"
+          >
+            Delete
           </button>
           <button
             onClick={editBook}

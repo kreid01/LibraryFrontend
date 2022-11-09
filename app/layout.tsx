@@ -44,7 +44,10 @@ export default function RootLayout({
                     src="https://media.istockphoto.com/id/1349688040/vector/hand-book-logo-design-education-logo-with-hand-concept-vector-hand-and-book-logo-design.jpg?b=1&s=612x612&w=0&k=20&c=ZUbty4wIBFifyvATL1AXUX7SwGagbC1KAqHH606I8eU="
                   />
                 </Link>
-                <SearchBar />
+                <input className="w-[60vw] rounded-l-md border-[1px] h-10 my-auto border-gray-300"></input>
+                <button className="my-auto w-[10vw] rounded-md bg-blue-800 h-10 -ml-2 text-white font-bold text-lg">
+                  <Link href="/books">Search</Link>
+                </button>
                 <div className="text-blue-900 font-bold ml-3 my-auto">
                   <FontAwesomeIcon
                     className="h-6 w-6 block"
