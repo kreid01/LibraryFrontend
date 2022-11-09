@@ -10,12 +10,10 @@ import { useForm } from "react-hook-form";
 import {
   Button,
   TextField,
-  Dialog,
   Select,
   MenuItem,
   DialogContent,
   DialogActions,
-  DialogContentText,
   CircularProgress,
 } from "@material-ui/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -67,123 +65,140 @@ export default function CreateBook() {
     mutate(book);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {" "}
-      <h3>Add a new book</h3>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Title
-      </label>
-      <TextField
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        type="text"
-        {...register("title")}
-        variant="outlined"
-        margin="dense"
-        placeholder="Title"
-        name="title"
-        id="title"
-      ></TextField>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Author
-      </label>
-      <TextField
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        type="text"
-        {...register("author")}
-        variant="outlined"
-        margin="dense"
-        placeholder="Author"
-        name="author"
-      ></TextField>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Published
-      </label>
-      <TextField
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        placeholder="Published"
-        {...register("published")}
-        variant="outlined"
-        margin="dense"
-        name="published"
-      ></TextField>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Quality
-      </label>
-      <TextField
-        {...register("quality")}
-        variant="outlined"
-        margin="dense"
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        placeholder="Quality"
-        name="quality"
-      >
-        <MenuItem value="WR">Well read</MenuItem>
-        <MenuItem value="G">Good</MenuItem>
-        <MenuItem value="VG">Very good</MenuItem>
-        <MenuItem value="N">New</MenuItem>
-      </TextField>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Pages
-      </label>
-      <TextField
-        {...register("pages")}
-        variant="outlined"
-        margin="dense"
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        type="number"
-        placeholder="Pages"
-        name="pages"
-      ></TextField>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Price
-      </label>
-      <TextField
-        {...register("price")}
-        variant="outlined"
-        margin="dense"
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        type="decimal"
-        placeholder="Price"
-        name="price"
-      ></TextField>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Genre
-      </label>
-      <Select
-        {...register("genre")}
-        variant="outlined"
-        margin="dense"
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        placeholder="Genre"
-        name="genre"
-      >
-        <MenuItem value="Novel">Novel</MenuItem>
-        <MenuItem value="Autobiography">Non-fiction</MenuItem>
-        <MenuItem value="Educational">Educational</MenuItem>
-        <MenuItem value="Childrens">Chilrens</MenuItem>
-      </Select>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Summary
-      </label>
-      <TextField
-        {...register("summary")}
-        variant="outlined"
-        margin="dense"
-        className="appearance-none block w-full bg-gray-200 resize-none text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        placeholder="Summary"
-        name="summary"
-      ></TextField>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Cover Image s
-      </label>
-      <TextField
-        {...register("cover")}
-        variant="outlined"
-        margin="dense"
-        className="appearance-none block w-full bg-gray-200 resize-none text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        placeholder="Cover Image URL"
-        name="cover"
-      />
+    <form onSubmit={handleSubmit(onSubmit)} className=" mx-auto w-[80vw]">
+      <DialogTitle>
+        <h1 className="font-bold text-2xl text-blue-900">Add a new book</h1>
+      </DialogTitle>
+      <DialogContent>
+        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Title
+        </label>
+        <TextField
+          className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          type="text"
+          {...register("title")}
+          variant="outlined"
+          margin="dense"
+          placeholder="Title"
+          name="title"
+          id="title"
+        ></TextField>
+        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Author
+        </label>
+        <TextField
+          className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          type="text"
+          {...register("author")}
+          variant="outlined"
+          margin="dense"
+          placeholder="Author"
+          name="author"
+        ></TextField>
+        <div className="flex w-full">
+          <div className="w-full mr-1">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Published
+            </label>
+            <TextField
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              placeholder="Published"
+              {...register("published")}
+              variant="outlined"
+              margin="dense"
+              name="published"
+            ></TextField>
+          </div>
+          <div className="w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Price
+            </label>
+            <TextField
+              {...register("price")}
+              variant="outlined"
+              margin="dense"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="decimal"
+              placeholder="Price"
+              name="price"
+            ></TextField>
+          </div>
+          <div className="w-full ml-1">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Pages
+            </label>
+            <TextField
+              {...register("pages")}
+              variant="outlined"
+              margin="dense"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="number"
+              placeholder="Pages"
+              name="pages"
+            ></TextField>
+          </div>
+        </div>
+        <div className="flex w-full">
+          <div className="w-full mr-1">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Quality
+            </label>
+            <Select
+              {...register("quality")}
+              variant="outlined"
+              margin="dense"
+              className="appearance-none block w-full h-10 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              placeholder="Quality"
+              name="quality"
+            >
+              <MenuItem value="WR">Well read</MenuItem>
+              <MenuItem value="G">Good</MenuItem>
+              <MenuItem value="VG">Very good</MenuItem>
+              <MenuItem value="N">New</MenuItem>
+            </Select>
+          </div>
+          <div className="w-full mr-1">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Genre
+            </label>
+            <Select
+              {...register("genre")}
+              variant="outlined"
+              margin="dense"
+              className="appearance-none block h-10 w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              placeholder="Genre"
+              name="genre"
+            >
+              <MenuItem value="Novel">Novel</MenuItem>
+              <MenuItem value="Autobiography">Non-fiction</MenuItem>
+              <MenuItem value="Educational">Educational</MenuItem>
+              <MenuItem value="Childrens">Chilrens</MenuItem>
+            </Select>
+          </div>
+        </div>
+        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Summary
+        </label>
+        <TextField
+          {...register("summary")}
+          variant="outlined"
+          margin="dense"
+          className="appearance-none block w-full bg-gray-200 resize-none text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          placeholder="Summary"
+          name="summary"
+        ></TextField>
+        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Cover Image
+        </label>
+        <TextField
+          {...register("cover")}
+          variant="outlined"
+          margin="dense"
+          className="appearance-none block w-full bg-gray-200 resize-none text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          placeholder="Cover Image URL"
+          name="cover"
+        />
+      </DialogContent>
       <img src={bookDetails.cover as string} alt="" />
       <DialogActions>
         <Button

@@ -1,4 +1,5 @@
 export type IBook = {
+  id: number;
   title: string;
   author: string;
   quality: string;

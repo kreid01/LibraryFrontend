@@ -14,8 +14,7 @@ export default function BooksPage() {
 
   return (
     <div>
-      <h1>Books</h1>
-      <div>
+      <div className="grid grid-cols-4 mx-auto mt-5">
         {data?.map((book: any) => {
           return <Book key={book.id} book={book} />;
         })}
@@ -25,14 +24,39 @@ export default function BooksPage() {
 }
 
 const Book = ({ book }: any) => {
-  const { id, title, author, cover, publisher, pages } = book || {};
+  const { id, title, author, cover, price, quality } = book || {};
+
+  const condition =
+    quality === "VG"
+      ? "Very good"
+      : quality === "G"
+      ? "Good"
+      : quality === "N"
+      ? "New"
+      : quality === "WR"
+      ? "Well read"
+      : null;
+
   return (
-    <Link href={`/books/${id}`}>
-      <div>
-        <h2>{title}</h2>
-        <h5>{author}</h5>
-        <img src={cover} alt="" />
-      </div>
-    </Link>
+    <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium">
+      <Link href={`/books/${id}`}>
+        {" "}
+        <img
+          className="w-36 h-56 rounded-md hover:brightness-60"
+          src={cover}
+          alt=""
+        />
+      </Link>
+      <h2 className="mb-3">{title}</h2>
+      <h5 className="text-gray-500">{author}</h5>
+      <p className="text-xs text-gray-400">{condition}</p>
+      <p className="text-2xl text-blue-500">£{price}</p>
+      <button
+        className=" hover:brightness-60 h-10 w-36 mt-auto bg-blue-900
+       rounded-md text-white"
+      >
+        Add to Cart
+      </button>
+    </div>
   );
 };
