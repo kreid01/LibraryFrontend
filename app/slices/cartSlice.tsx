@@ -23,9 +23,19 @@ export const cartSlice = createSlice({
       const index = state.value.indexOf(action.payload);
       state.value.splice(index, 1);
     },
+    addBorrowToCart: (state, action: PayloadAction<IBook>) => {
+      console.log(action.payload);
+      return {
+        ...state,
+        value: [
+          ...state.value,
+          { ...action.payload, isBorrowing: true, price: 1 },
+        ],
+      };
+    },
   },
 });
 
-export const { addToCart, deleteFromCart } = cartSlice.actions;
+export const { addToCart, deleteFromCart, addBorrowToCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

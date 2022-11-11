@@ -11,4 +11,5 @@ export type IBook = {
   published: string;
   isAvailable?: boolean;
   cover: string;
+  isBorrowing?: boolean;
 };

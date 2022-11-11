@@ -4,6 +4,7 @@ import { faArrowLeft, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { CartBook } from "./CartBook";
+import { IBook } from "../consts/Interfaces";
 
 interface Props {
   handleClick: () => void;
@@ -11,6 +12,24 @@ interface Props {
 
 export const Cart: React.FC<Props> = ({ handleClick }) => {
   const cart = useSelector((state: RootState) => state.cart.value);
+
+  const cartTotal = cart.reduce((acc, book) => {
+    return acc + book.price;
+  }, 0);
+
+  const cartWithUniqueBooks = cart.reduce((acc: any, book) => {
+    if (
+      !acc.find(
+        (u: IBook) =>
+          u.title === book.title &&
+          u.quality === book.quality &&
+          u.price === book.price
+      )
+    ) {
+      acc.push(book);
+    }
+    return acc;
+  }, []);
 
   return (
     <div className="w-[50vw] sm:w-[60vw] bg-white absolute h-[100vh] z-10 right-0 shadow-lg top-0">
@@ -33,14 +52,15 @@ export const Cart: React.FC<Props> = ({ handleClick }) => {
           <section className="ml-8 font-bold mt-4  text-green-800">
             <h2 className=" text-xl">Your Order</h2>
             <h4 className="flex text-sm mt-3 -mb-1 justify-between font-normal">
-              Subtotal<div className="text-teal-600 mr-8">£</div>
+              Subtotal<div className="text-teal-600 mr-8">£{cartTotal}</div>
             </h4>
             <h3 className="text-lg flex justify-between">
-              Total<div className="text-xl text-teal-600 mr-8">£</div>
+              Total
+              <div className="text-xl text-teal-600 mr-8">£{cartTotal}</div>
             </h3>
           </section>
           <section>
-            {cart.map((book) => (
+            {cartWithUniqueBooks.map((book: IBook) => (
               <CartBook key={book.id} book={book} />
             ))}
           </section>

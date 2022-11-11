@@ -10,7 +10,7 @@ export const GenreFilter: React.FC = () => {
   };
 
   return (
-    <div className="mt-[15px] pl-5 mb-5 ">
+    <div className="mt-[15px] -mb-5 pl-5 pb-10">
       <div className="flex justify-around">
         <li className="list-none">
           <Link href="/books">

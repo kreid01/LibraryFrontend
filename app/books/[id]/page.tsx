@@ -5,6 +5,8 @@ import { useQuery } from "react-query";
 import { IBook } from "../../consts/Interfaces";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
+import { addToCart, addBorrowToCart } from "../../slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 async function getBook({ queryKey }: any) {
   const { data } = await axios.get<IBook>(
@@ -37,6 +39,7 @@ const updateBook = async (data: IBook) => {
 };
 
 export default function BookPage({ params }: any) {
+  const dispatch = useDispatch();
   const { data, status } = useQuery(["books", params.id], getBook);
   const { title, author, cover, price, quality, summary } =
     (data as IBook) || {};
@@ -79,6 +82,14 @@ export default function BookPage({ params }: any) {
       ...(prevData as IBook),
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleBorrow = (book: IBook) => {
+    dispatch(addBorrowToCart(book));
+  };
+
+  const handleCartAdd = (book: IBook) => {
+    dispatch(addToCart(book));
   };
 
   const condition =
@@ -193,9 +204,22 @@ export default function BookPage({ params }: any) {
             Condition -
             <span className="text-blue-500 font-bold">{condition}</span>
           </p>
-          <button className=" hover:brightness-60 h-10 w-64 mt-24 bg-blue-900 rounded-md text-white">
+          <button
+            onClick={() => handleCartAdd(data as IBook)}
+            className=" hover:brightness-60 h-10 w-64 mt-16 bg-blue-900 rounded-md text-white"
+          >
             Add to Cart
           </button>
+          <div>
+            {" "}
+            - or -{" "}
+            <button
+              onClick={() => handleBorrow(data as IBook)}
+              className="block text-blue-500"
+            >
+              Borrow
+            </button>
+          </div>
           <button
             onClick={editBook}
             className=" hover:brightness-60 h-10 w-64 mt-16 bg-blue-900 rounded-md text-white"

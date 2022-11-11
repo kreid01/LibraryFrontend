@@ -7,10 +7,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { literal, object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useRouter } from "next/router";
 import {
   Button,
-  TextField,
   DialogContent,
   DialogActions,
   CircularProgress,
@@ -23,30 +22,30 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 
-const createEmployee = async (data: User) => {
+const createUser = async (data: User) => {
+  const { firstName, lastName, email, password } = data;
   const { data: response } = await axios.post(
-    "https://localhost:7147/books/users",
-    data
+    `https://localhost:7147/register?FirstName=${firstName}&LastName=${lastName}&Email=${email}&Password=${password}`
   );
   return response.data;
 };
 
 interface User {
   firstName: string;
-  secondName: string;
+  lastName: string;
   email: string;
   password: string;
   passwordConfirm: string;
 }
 
-export default function EmployeeForm() {
+export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
   const queryClient = useQueryClient();
   const registerSchema = object({
     firstName: string()
       .min(1, "Name is required")
       .max(32, "Name must be less than 100 characters"),
-    secondName: string()
+    lastName: string()
       .min(1, "Name is required")
       .max(32, "Name must be less than 100 characters"),
     email: string().min(1, "Email is required").email("Email is invalid"),
@@ -60,7 +59,7 @@ export default function EmployeeForm() {
     message: "Passwords do not match",
   });
   type RegisterInput = TypeOf<typeof registerSchema>;
-
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -69,10 +68,11 @@ export default function EmployeeForm() {
     resolver: zodResolver(registerSchema),
     mode: "onChange",
   });
-  const { mutate, isLoading } = useMutation(createEmployee, {
+  const { mutate, isLoading } = useMutation(createUser, {
     onSuccess: (data) => {
       console.log(data);
       const message = "success";
+      router.push("/home");
       alert(message);
     },
     onError: () => {
@@ -103,7 +103,7 @@ export default function EmployeeForm() {
       <h1 className="font-bold ml-[82px] my-5 text-2xl text-blue-900">
         Create an account
       </h1>
-      <div className="ml-[60px] w-[50vw]">
+      <div className="ml-[60px] w-[410px]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <FormControl
@@ -135,17 +135,17 @@ export default function EmployeeForm() {
                 Second Name
               </InputLabel>
               <OutlinedInput
-                {...register("secondName")}
+                {...register("lastName")}
                 style={{ width: "380px", height: "55px" }}
-                id="secondName"
-                label="Second Name"
+                id="lastName"
+                label="Last Name"
                 margin="dense"
-                name="secondName"
+                name="lastName"
                 type="text"
-                error={!!errors.secondName?.message}
+                error={!!errors.lastName?.message}
               />
               <FormHelperText className="text-red-600">
-                {errors.secondName ? errors.secondName.message : ""}
+                {errors.lastName ? errors.lastName.message : ""}
               </FormHelperText>{" "}
             </FormControl>
             <FormControl
@@ -233,22 +233,19 @@ export default function EmployeeForm() {
             </FormControl>
           </DialogContent>
           <DialogActions>
-            <div className="mr-4">
-              <Button
-                className="-mr-10"
-                color="primary"
-                type="submit"
-                variant="contained"
-                disabled={isLoading}
-                startIcon={
-                  isLoading ? (
-                    <CircularProgress color="inherit" size={25} />
-                  ) : null
-                }
-              >
-                Register
-              </Button>
-            </div>
+            <Button
+              color="primary"
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              startIcon={
+                isLoading ? (
+                  <CircularProgress color="inherit" size={25} />
+                ) : null
+              }
+            >
+              Register
+            </Button>
           </DialogActions>
         </form>
       </div>

@@ -1,8 +1,11 @@
 import React from "react";
 import { IBook } from "../consts/Interfaces";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart } from "../slices/cartSlice";
+import { RootState } from "../store/store";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   book: IBook;
@@ -10,11 +13,22 @@ interface Props {
 
 export const CartBook: React.FC<Props> = ({ book }) => {
   const { author, title, cover, price, quality, genre, id } = book;
+  const cart = useSelector((state: RootState) => state.cart.value);
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     dispatch(deleteFromCart(book));
   };
+
+  let quantity = 0;
+  cart.map((cartBook: IBook) => {
+    if (
+      book.title === cartBook.title &&
+      book.quality === cartBook.quality &&
+      book.price === cartBook.price
+    )
+      quantity++;
+  });
 
   const condition =
     quality === "VG"
@@ -33,28 +47,39 @@ export const CartBook: React.FC<Props> = ({ book }) => {
         <img
           src={cover}
           alt=""
-          className="w-36 h-56 rounded-md hover:brightness-60"
+          className="w-44 h-56 rounded-md hover:brightness-60"
         />
       </Link>
       <div className="ml-4 text-sm  font-medium  text-blue-900">
-        <h2 className="font-bold text-base mb-3">
+        <h2 className="font-bold text-base mb-3 w-[80%]">
           {title} By {author}
         </h2>
-        <p className="flex justify-between">
-          Price<div className="font-bold text-base">£{price}</div>
-        </p>
-        <p className="flex justify-between">
-          Condition<div className="text-teal-600">{condition}</div>
-        </p>
-        <p className="flex justify-between">
-          Category<div className="text-teal-600">{genre}</div>
-        </p>
-        <div className="mt-4">
+        <div className="mr-8">
+          <p className="flex justify-between">
+            Price<div className="font-bold text-base">£{price}</div>
+          </p>
+          <p className="flex justify-between">
+            Condition<div className="text-teal-600">{condition}</div>
+          </p>
+          <p className="flex justify-between">
+            Category<div className="text-teal-600">{genre}</div>
+          </p>
+          {book?.isBorrowing ? (
+            <div className="text-blue-500">Borrowing</div>
+          ) : null}
+        </div>
+        <div className="mt-4 flex">
           Qty{" "}
-          <input
-            className="border-[1px] w-12 ml-4 text-lg"
-            type="number"
-          ></input>
+          <div className="font-bold ml-3 flex">
+            <button>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+            <div className="mx-3">{quantity}</div>
+            <button>
+              {" "}
+              <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
         </div>
         <button className="mt-4 text-red-500" onClick={handleRemove}>
           Remove Item
