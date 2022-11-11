@@ -130,7 +130,7 @@ export default function BookPage({ params }: any) {
           <p className="text-sm font-normal">
             Condition -
             <select
-              name="author"
+              name="quality"
               onChange={(e) => handleChange(e)}
               className="text-blue-500 font-bold"
             >
@@ -140,10 +140,23 @@ export default function BookPage({ params }: any) {
               <option value="N">New</option>
             </select>
           </p>
+          <p className="text-sm font-normal">
+            Genre -
+            <select
+              name="genre"
+              onChange={(e) => handleChange(e)}
+              className="text-blue-500 font-bold"
+            >
+              <option value="Novel">Novel</option>
+              <option value="Autobiography">Autobiography</option>
+              <option value="Educational">Educational</option>
+              <option value="Childrens">Childrens</option>
+            </select>
+          </p>
 
           <button
             onClick={deleteBook}
-            className=" hover:brightness-60 h-10 w-64 mt-24 bg-red-900 rounded-md text-white"
+            className=" hover:brightness-60 h-10 w-64 mt-12 bg-red-900 rounded-md text-white"
           >
             Delete
           </button>

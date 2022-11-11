@@ -1,70 +1,99 @@
 "use client";
-import Link from "next/link";
-import { useQuery } from "react-query";
-import { useState } from "react";
+import { useInfiniteQuery } from "react-query";
+import { useState, useEffect } from "react";
 import "../globals.css";
 import { IBook } from "../consts/Interfaces";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { Book } from "../components/Book";
 
-async function getBooks() {
-  const res = await fetch("https://localhost:7147/books");
-  return res.json();
+type Query = {
+  searchQuery: string;
+  genreQuery: string;
+};
+
+async function getBooks(queryKey: any, pageParam: number) {
+  const { searchQuery, genreQuery } = queryKey;
+  const { data } = await axios.get("https://localhost:7147/books", {
+    params: {
+      SearchQuery: searchQuery,
+      GenreFilter: genreQuery,
+      PageNumber: pageParam,
+      PageSize: 10,
+    },
+  });
+  return data as IBook[];
 }
 export default function BooksPage() {
-  const [page, setPage] = useState(1);
-  const { data, status } = useQuery(["books", page], getBooks);
+  const queryState = useSelector((state: RootState) => state.filter.value);
+  const [query, setQuery] = useState({
+    searchQuery: "",
+    genreQuery: "",
+  });
 
-  const books = data?.reduce((acc: any, book: IBook) => {
-    if (!acc.find((u: IBook) => u.title === book.title)) {
-      acc.push(book);
-    }
-    return acc;
-  }, []);
+  useEffect(() => {
+    setQuery(queryState as Query);
+  }, [queryState.genreQuery, queryState.searchQuery]);
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isSuccess,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["books", query as Query],
+    queryFn: ({ pageParam = 1 }) => getBooks(query, pageParam),
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
+      return nextPage;
+    },
+  });
+
+  useEffect(() => {
+    let fetching = false;
+    const handleScroll = async (e: any) => {
+      const { scrollHeight, scrollTop, clientHeight } =
+        e.target.scrollingElement;
+      if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.2) {
+        fetching = true;
+        if (hasNextPage) await fetchNextPage();
+        fetching = false;
+      }
+    };
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, [fetchNextPage, hasNextPage]);
 
   return (
     <div>
-      <div className="grid grid-cols-4 mx-auto mt-5">
-        {books?.map((book: any) => {
-          return <Book key={book.id} book={book} />;
-        })}
-      </div>
+      {status === "loading" ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          <div className="grid grid-cols-4 mx-auto mt-5">
+            {isSuccess &&
+              data?.pages.map((page) =>
+                page.map((book) => <Book key={book.id} book={book} />)
+              )}
+          </div>
+          <div className="ml-5">
+            {isFetchingNextPage
+              ? "Loading more..."
+              : hasNextPage
+              ? "Load More"
+              : "Nothing more to load"}
+          </div>
+          <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
+        </div>
+      )}
     </div>
   );
 }
 
-const Book = ({ book }: any) => {
-  const { id, title, author, cover, price, quality } = book || {};
-
-  const condition =
-    quality === "VG"
-      ? "Very good"
-      : quality === "G"
-      ? "Good"
-      : quality === "N"
-      ? "New"
-      : quality === "WR"
-      ? "Well read"
-      : null;
-
-  return (
-    <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium relative">
-      <Link href={`/books/${id}`}>
-        {" "}
-        <img
-          className="w-36 h-56 rounded-md hover:brightness-60"
-          src={cover}
-          alt=""
-        />
-      </Link>
-      <h2 className="mb-3">{title}</h2>
-      <h5 className="text-gray-500">{author}</h5>
-      <p className="text-xs text-gray-400">{condition}</p>
-      <p className="text-2xl text-blue-500">£{price}</p>
-      <button
-        className="bottom-1 left-0 absolute hover:brightness-60 h-10 w-36 mt-auto bg-blue-900
-       rounded-md text-white"
-      >
-        Add to Cart
-      </button>
-    </div>
-  );
-};

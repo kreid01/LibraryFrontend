@@ -1,6 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
-
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
@@ -16,7 +14,6 @@ import {
   DialogActions,
   CircularProgress,
 } from "@material-ui/core";
-import DialogTitle from "@material-ui/core/DialogTitle";
 
 const addBook = async (data: IBook) => {
   const { data: response } = await axios.post(
@@ -58,7 +55,6 @@ export default function CreateBook() {
   });
 
   const onSubmit = (data: IBook) => {
-    console.log(data);
     const book = {
       ...data,
     };
@@ -66,9 +62,9 @@ export default function CreateBook() {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className=" mx-auto w-[80vw]">
-      <DialogTitle>
-        <h1 className="font-bold text-2xl text-blue-900">Add a new book</h1>
-      </DialogTitle>
+      <h1 className="font-bold ml-20 my-5 text-2xl text-blue-900">
+        Add a new book
+      </h1>
       <DialogContent>
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
           Title
@@ -147,6 +143,7 @@ export default function CreateBook() {
               {...register("quality")}
               variant="outlined"
               margin="dense"
+              defaultValue="N"
               className="appearance-none block w-full h-10 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               placeholder="Quality"
               name="quality"
@@ -167,10 +164,11 @@ export default function CreateBook() {
               margin="dense"
               className="appearance-none block h-10 w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               placeholder="Genre"
+              defaultValue="Novel"
               name="genre"
             >
               <MenuItem value="Novel">Novel</MenuItem>
-              <MenuItem value="Autobiography">Non-fiction</MenuItem>
+              <MenuItem value="Non-fiction">Non-fiction</MenuItem>
               <MenuItem value="Educational">Educational</MenuItem>
               <MenuItem value="Childrens">Chilrens</MenuItem>
             </Select>
@@ -201,17 +199,20 @@ export default function CreateBook() {
       </DialogContent>
       <img src={bookDetails.cover as string} alt="" />
       <DialogActions>
-        <Button
-          color="primary"
-          type="submit"
-          variant="contained"
-          disabled={isLoading}
-          startIcon={
-            isLoading ? <CircularProgress color="inherit" size={25} /> : null
-          }
-        >
-          Create
-        </Button>
+        <div className="mr-5 font-bold">
+          <Button
+            style={{ fontWeight: "bold" }}
+            color="primary"
+            type="submit"
+            variant="contained"
+            disabled={isLoading}
+            startIcon={
+              isLoading ? <CircularProgress color="inherit" size={25} /> : null
+            }
+          >
+            Create
+          </Button>
+        </div>
       </DialogActions>
     </form>
   );
