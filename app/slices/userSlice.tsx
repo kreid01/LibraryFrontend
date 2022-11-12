@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBook } from "../consts/Interfaces";
 
 interface User {
-  value: IUser;
+  value: {
+    token: string | null;
+    userId: number | null;
+    isAuth?: boolean | null | undefined;
+  };
 }
 
 const initialState: User = {
@@ -13,10 +16,10 @@ const initialState: User = {
   },
 };
 
-type IUser = {
+export type IUser = {
   token: string | null;
   userId: number | null;
-  isAuth: boolean | null;
+  isAuth?: boolean | null | undefined;
 };
 
 export const userSlice = createSlice({
@@ -29,6 +32,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+export const { setUser } = userSlice.actions;
 
 export default userSlice.reducer;

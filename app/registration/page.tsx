@@ -72,7 +72,7 @@ export default function RegistrationForm() {
     onSuccess: (data) => {
       console.log(data);
       const message = "success";
-      router.push("/home");
+      router.push("/");
       alert(message);
     },
     onError: () => {

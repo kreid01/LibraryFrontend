@@ -5,8 +5,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { JWT, setUser } from "../slices/userSlice";
 import Link from "next/link";
-import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {
   Button,
@@ -20,6 +20,8 @@ import {
   FormControl,
   FormHelperText,
 } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 interface Props {
   setLogin: () => void;
@@ -37,57 +39,17 @@ const loginUser = async (user: Login) => {
   return response;
 };
 
-type jwtDetails = {
-  token: string;
-  userId: number;
-  isAuth?: boolean;
-};
-
-type jwt = {
-  exp: number;
-};
-
 export const Login: React.FC<Props> = ({ setLogin }) => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm<Login>({
     mode: "onChange",
   });
-
-  const getUserById = async (userState: any) => {
-    const { data } = await axios.get(
-      `https://localhost:7147/user/${userState?.userId}`,
-      {
-        headers: {
-          authorization: `bearer ${userState?.token}`,
-        },
-      }
-    );
-  };
-
-  const [jwtData, setjwtData] = useState<jwtDetails>(() => {
-    const saved = localStorage.getItem("jwtData");
-    const initialValue = JSON.parse(saved as any);
-    return initialValue || "";
-  });
-
-  useEffect(() => {
-    if (jwtData.token && jwt_decode(jwtData.token)) {
-      const { exp } = jwt_decode(jwtData.token as string) as jwt;
-      const currentTime = Date.now() / 1000;
-      if (currentTime < exp) {
-        getUserById(jwtData);
-      }
-    }
-  }, [jwtData]);
-
-  React.useEffect(() => {
-    window.localStorage.setItem("jwtData", JSON.stringify(jwtData));
-  }, [jwtData]);
-
+  const dispatch = useDispatch();
   const { mutate, isLoading } = useMutation(loginUser, {
     onSuccess: (data) => {
-      setjwtData({ ...data, isAuth: true });
+      dispatch(setUser({ ...data, isAuth: true }));
       const message = "success";
       alert(message);
     },

@@ -5,6 +5,7 @@ import "./globals.css";
 import Link from "next/link";
 import React, { useState } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import store from "./store/store";
@@ -12,7 +13,8 @@ import { Provider } from "react-redux";
 import { SearchBar } from "./components/SearchBar";
 import { GenreFilter } from "./components/GenreFilter";
 import { Cart } from "./components/Cart";
-import { Login } from "./Login";
+import { Login } from "./components/Login";
+import { TopNav } from "./components/TopNav";
 
 export default function RootLayout({
   children,
@@ -43,23 +45,7 @@ export default function RootLayout({
         <body>
           <main className="box-border overflow-x-hidden">
             <div onClick={closeCartAndLogin} className={darknessStyle}>
-              <nav className="w-[100vw] h-10 text-white font-medium bg-blue-400 flex justify-items-start">
-                <div className="ml-auto text-md mr-3">
-                  <Link className="mx-1" href="/newbook">
-                    New Book |
-                  </Link>
-                  <Link className="mx-1" href="/admin">
-                    Admin |
-                  </Link>
-                  <Link className="mx-1" href="/account">
-                    Account |
-                  </Link>
-                  <Link className="mx-1" href="/registration">
-                    Create Account
-                  </Link>
-                  <button onClick={setLogin}>Login</button>
-                </div>
-              </nav>
+              <TopNav setLogin={setLogin} />
             </div>
             <div onClick={closeCartAndLogin} className={darknessStyle}>
               <nav className="flex justify-center h-[82px] border-b-[1px] border-gray-200 w-[100vw]">
