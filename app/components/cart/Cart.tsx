@@ -2,9 +2,10 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import { CartBook } from "./CartBook";
-import { IBook } from "../consts/Interfaces";
+import { IBook } from "../../consts/Interfaces";
+import Link from "next/link";
 
 interface Props {
   handleClick: () => void;
@@ -46,17 +47,22 @@ export const Cart: React.FC<Props> = ({ handleClick }) => {
               className="text-lg font-bold w-[92%] ml-[4%] my-auto mt-4 bg-blue-900 h-12 text-white
              rounded-md px-5 hover:brightness-[60%]"
             >
-              <FontAwesomeIcon icon={faLock} /> Continue to Checkout
+              <Link href="/cart" onClick={handleClick}>
+                <FontAwesomeIcon icon={faLock} /> Continue to Checkout
+              </Link>
             </button>
           </section>
           <section className="ml-8 font-bold mt-4  text-green-800">
             <h2 className=" text-xl">Your Order</h2>
             <h4 className="flex text-sm mt-3 -mb-1 justify-between font-normal">
-              Subtotal<div className="text-teal-600 mr-8">£{cartTotal}</div>
+              Subtotal
+              <div className="text-teal-600 mr-8">£{cartTotal.toFixed(2)}</div>
             </h4>
             <h3 className="text-lg flex justify-between">
               Total
-              <div className="text-xl text-teal-600 mr-8">£{cartTotal}</div>
+              <div className="text-xl text-teal-600 mr-8">
+                £{cartTotal.toFixed(2)}
+              </div>
             </h3>
           </section>
           <section>
@@ -73,3 +79,5 @@ export const Cart: React.FC<Props> = ({ handleClick }) => {
     </div>
   );
 };
+
+export default Cart;

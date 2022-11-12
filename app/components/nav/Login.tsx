@@ -5,7 +5,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { JWT, setUser } from "../slices/userSlice";
+import { JWT, setUser } from "../../slices/userSlice";
 import Link from "next/link";
 import axios from "axios";
 import {
@@ -20,7 +20,7 @@ import {
   FormControl,
   FormHelperText,
 } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -103,9 +103,7 @@ export const Login: React.FC<Props> = ({ setLogin }) => {
               style={{ marginBottom: "20px", width: "25ch" }}
               variant="outlined"
             >
-              <InputLabel htmlFor="outlined-adornment-password">
-                Email
-              </InputLabel>
+              <InputLabel htmlFor="email">Email</InputLabel>
               <OutlinedInput
                 {...register("email")}
                 style={{ width: "410px", height: "55px" }}
@@ -187,3 +185,5 @@ export const Login: React.FC<Props> = ({ setLogin }) => {
     </div>
   );
 };
+
+export default Login;

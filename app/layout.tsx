@@ -3,18 +3,18 @@
 import "./globals.css";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import store from "./store/store";
 import { Provider } from "react-redux";
-import { SearchBar } from "./components/SearchBar";
-import { GenreFilter } from "./components/GenreFilter";
-import { Cart } from "./components/Cart";
-import { Login } from "./components/Login";
-import { TopNav } from "./components/TopNav";
+import { SearchBar } from "./components/nav/SearchBar";
+import { GenreFilter } from "./components/nav/GenreFilter";
+import { TopNav } from "./components/nav/TopNav";
+
+const Login = lazy(() => import("./components/nav/Login"));
+const Cart = lazy(() => import("./components/cart/Cart"));
 
 export default function RootLayout({
   children,
@@ -71,9 +71,17 @@ export default function RootLayout({
             </div>
             <QueryClientProvider client={client}>
               <div className=" z-10  left-[50%] -ml-[240px] absolute">
-                {isLoggingIn && <Login setLogin={setLogin} />}
+                {isLoggingIn && (
+                  <Suspense>
+                    <Login setLogin={setLogin} />
+                  </Suspense>
+                )}
               </div>
-              {isCartOpen && <Cart handleClick={handleClick} />}
+              {isCartOpen && (
+                <Suspense>
+                  <Cart handleClick={handleClick} />
+                </Suspense>
+              )}
               <div
                 onClick={closeCartAndLogin}
                 className={`${darknessStyle} min-h-[82vh]`}

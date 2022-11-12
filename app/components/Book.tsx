@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { IBook } from "../consts/Interfaces";
 import { addToCart } from "../slices/cartSlice";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export const Book = ({ book }: any) => {
   const { id, title, author, cover, price, quality } = book || {};
@@ -25,9 +27,11 @@ export const Book = ({ book }: any) => {
     <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium relative">
       <Link href={`/books/${id}`}>
         {" "}
-        <img
+        <LazyLoadImage
           className="w-36 h-56 rounded-md hover:brightness-60"
           src={cover}
+          placeholderSrc={cover}
+          effect="blur"
           alt=""
         />
       </Link>

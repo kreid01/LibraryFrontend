@@ -1,9 +1,13 @@
 import React from "react";
-import { IBook } from "../consts/Interfaces";
+import { IBook } from "../../consts/Interfaces";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFromCart } from "../slices/cartSlice";
-import { RootState } from "../store/store";
+import {
+  addToCart,
+  deleteFromCart,
+  decrementFromCart,
+} from "../../slices/cartSlice";
+import { RootState } from "../../store/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,6 +22,14 @@ export const CartBook: React.FC<Props> = ({ book }) => {
 
   const handleRemove = () => {
     dispatch(deleteFromCart(book));
+  };
+
+  const handleIncrement = (book: IBook) => {
+    dispatch(addToCart(book));
+  };
+
+  const handleDecrement = (book: IBook) => {
+    dispatch(decrementFromCart(book));
   };
 
   let quantity = 0;
@@ -47,23 +59,23 @@ export const CartBook: React.FC<Props> = ({ book }) => {
         <img
           src={cover}
           alt=""
-          className="w-44 h-56 rounded-md hover:brightness-60"
+          className="h-56 w-32 rounded-md hover:brightness-60"
         />
       </Link>
-      <div className="ml-4 text-sm  font-medium  text-blue-900">
+      <div className="ml-4 text-sm font-medium -mr-4 w-[80%]  text-blue-900">
         <h2 className="font-bold text-base mb-3 w-[80%]">
           {title} By {author}
         </h2>
         <div className="mr-8">
-          <p className="flex justify-between">
+          <div className="flex justify-between">
             Price<div className="font-bold text-base">£{price}</div>
-          </p>
-          <p className="flex justify-between">
+          </div>
+          <div className="flex justify-between">
             Condition<div className="text-teal-600">{condition}</div>
-          </p>
-          <p className="flex justify-between">
+          </div>
+          <div className="flex justify-between">
             Category<div className="text-teal-600">{genre}</div>
-          </p>
+          </div>
           {book?.isBorrowing ? (
             <div className="text-blue-500">Borrowing</div>
           ) : null}
@@ -71,11 +83,11 @@ export const CartBook: React.FC<Props> = ({ book }) => {
         <div className="mt-4 flex">
           Qty{" "}
           <div className="font-bold ml-3 flex">
-            <button>
+            <button onClick={() => handleDecrement(book)}>
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
             <div className="mx-3">{quantity}</div>
-            <button>
+            <button onClick={() => handleIncrement(book)}>
               {" "}
               <FontAwesomeIcon icon={faArrowRight} />
             </button>

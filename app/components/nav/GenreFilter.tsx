@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { handleGenreChange } from "../slices/filterSlice";
+import { handleGenreChange } from "../../slices/filterSlice";
 import Link from "next/link";
 
 export const GenreFilter: React.FC = () => {

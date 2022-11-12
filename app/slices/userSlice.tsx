@@ -16,7 +16,7 @@ const initialState: User = {
   },
 };
 
-export type IUser = {
+export type JWT = {
   token: string | null;
   userId: number | null;
   isAuth?: boolean | null | undefined;
@@ -26,7 +26,7 @@ export const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IUser>) => {
+    setUser: (state, action: PayloadAction<JWT>) => {
       state.value = action.payload;
     },
   },

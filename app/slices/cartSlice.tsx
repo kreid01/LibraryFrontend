@@ -20,8 +20,12 @@ export const cartSlice = createSlice({
       };
     },
     deleteFromCart: (state, action: PayloadAction<IBook>) => {
-      const index = state.value.indexOf(action.payload);
-      state.value.splice(index, 1);
+      state.value.map((book, i) => {
+        if (book.title === action.payload.title) {
+          state.value.splice(i, 1);
+          console.log(book.title);
+        }
+      });
     },
     addBorrowToCart: (state, action: PayloadAction<IBook>) => {
       console.log(action.payload);
@@ -33,9 +37,14 @@ export const cartSlice = createSlice({
         ],
       };
     },
+    decrementFromCart: (state, action: PayloadAction<IBook>) => {
+      const index = state.value.indexOf(action.payload);
+      state.value.splice(index, 1);
+    },
   },
 });
 
-export const { addToCart, deleteFromCart, addBorrowToCart } = cartSlice.actions;
+export const { addToCart, deleteFromCart, addBorrowToCart, decrementFromCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
