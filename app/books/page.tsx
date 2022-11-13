@@ -76,7 +76,7 @@ export default function BooksPage() {
       {status === "loading" ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="mx-5 w-[100vw]">
           <div className="grid grid-cols-4 mx-auto mt-5">
             {isSuccess &&
               data?.pages.map((page) =>

@@ -30,13 +30,14 @@ const createUser = async (data: User) => {
   return response.data;
 };
 
-interface User {
+export type User = {
+  id?: number;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   passwordConfirm: string;
-}
+};
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,7 +73,6 @@ export default function RegistrationForm() {
     onSuccess: (data) => {
       console.log(data);
       const message = "success";
-      router.push("/");
       alert(message);
     },
     onError: () => {

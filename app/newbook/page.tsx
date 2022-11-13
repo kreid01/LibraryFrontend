@@ -62,7 +62,7 @@ export default function CreateBook() {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className=" mx-auto w-[80vw]">
-      <h1 className="font-bold ml-20 my-5 text-2xl text-blue-900">
+      <h1 className="font-bold ml-6 my-5 text-2xl text-blue-900">
         Add a new book
       </h1>
       <DialogContent>
