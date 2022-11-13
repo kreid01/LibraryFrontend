@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBook } from "../consts/Interfaces";
+import { IBook } from "../assets/Interfaces";
 
 interface Cart {
   value: IBook[];
@@ -19,13 +19,27 @@ export const cartSlice = createSlice({
         value: [...state.value, action.payload],
       };
     },
-    deleteFromCart: (state, action: PayloadAction<IBook>) => {
+    emptyCart: (state, action: PayloadAction) => {
+      state.value = initialState.value;
+    },
+    addBorrowToCart: (state, action: PayloadAction<IBook>) => {
+      console.log(action.payload);
+      return {
+        ...state,
+        value: [
+          ...state.value,
+          { ...action.payload, isBorrowing: true, price: 1 },
+        ],
+      };
+    },
+    decrementFromCart: (state, action: PayloadAction<IBook>) => {
       const index = state.value.indexOf(action.payload);
       state.value.splice(index, 1);
     },
   },
 });
 
-export const { addToCart, deleteFromCart } = cartSlice.actions;
+export const { addToCart, emptyCart, addBorrowToCart, decrementFromCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

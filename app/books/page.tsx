@@ -2,7 +2,7 @@
 import { useInfiniteQuery } from "react-query";
 import { useState, useEffect } from "react";
 import "../globals.css";
-import { IBook } from "../consts/Interfaces";
+import { IBook } from "../assets/Interfaces";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -76,7 +76,7 @@ export default function BooksPage() {
       {status === "loading" ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="mx-5 w-[100vw]">
           <div className="grid grid-cols-4 mx-auto mt-5">
             {isSuccess &&
               data?.pages.map((page) =>

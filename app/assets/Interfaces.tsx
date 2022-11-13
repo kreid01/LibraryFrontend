@@ -11,4 +11,15 @@ export type IBook = {
   published: string;
   isAvailable?: boolean;
   cover: string;
+  isBorrowing?: boolean;
+};
+
+export type IOrder = {
+  id: number;
+  userId: number;
+  isBorrowing: boolean;
+  bookIds: number[];
+  created: string;
+  addressId: string;
+  cartTotal?: number;
 };

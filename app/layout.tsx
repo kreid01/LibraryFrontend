@@ -3,15 +3,19 @@
 import "./globals.css";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import store from "./store/store";
 import { Provider } from "react-redux";
-import { SearchBar } from "./components/SearchBar";
-import { GenreFilter } from "./components/GenreFilter";
-import { Cart } from "./components/Cart";
+import { SearchBar } from "./components/nav/SearchBar";
+import { GenreFilter } from "./components/nav/GenreFilter";
+import { TopNav } from "./components/nav/TopNav";
+import { CartNavQuantity } from "./components/cart/CartNavQuantity";
+
+const Login = lazy(() => import("./components/nav/Login"));
+const Cart = lazy(() => import("./components/cart/Cart"));
 
 export default function RootLayout({
   children,
@@ -19,36 +23,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const client = new QueryClient();
-  const [open, setOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const handleClick = () => {
-    setOpen((prevState) => !prevState);
+    setIsCartOpen((prevState) => !prevState);
   };
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const setLogin = () => setIsLoggingIn((prevState) => !prevState);
+
+  const closeCartAndLogin = () => {
+    if (isLoggingIn || isCartOpen) {
+      setIsLoggingIn(false);
+      setIsCartOpen(false);
+    }
+  };
+  const darknessStyle =
+    isLoggingIn || isCartOpen ? "brightness-[60%] bg-white" : "";
 
   return (
     <Provider store={store}>
       <html>
         <head></head>
         <body>
-          <main>
-            <div>
-              <nav className="w-[100vw] h-10 text-white font-medium bg-blue-400 flex justify-items-start">
-                <div className="ml-auto text-md mr-3">
-                  <Link className="mx-1" href="/newbook">
-                    New Book |
-                  </Link>
-                  <Link className="mx-1" href="/admin">
-                    Admin |
-                  </Link>
-                  <Link className="mx-1" href="/account">
-                    Account |
-                  </Link>
-                  <Link className="mx-1" href="/registration">
-                    Create Account
-                  </Link>
-                </div>
-              </nav>
+          <main className="box-border overflow-x-hidden">
+            <div onClick={closeCartAndLogin} className={darknessStyle}>
+              <TopNav setLogin={setLogin} />
             </div>
-            <div>
+            <div onClick={closeCartAndLogin} className={darknessStyle}>
               <nav className="flex justify-center h-[82px] border-b-[1px] border-gray-200 w-[100vw]">
                 <div className="flex">
                   <Link href="/">
@@ -58,21 +58,39 @@ export default function RootLayout({
                     />
                   </Link>
                   <SearchBar />
-                  <div className="text-blue-900 font-bold ml-3 my-auto">
+                  <div
+                    className="text-blue-900 font-bold ml-3 my-auto cursor-pointer"
+                    onClick={handleClick}
+                  >
                     <FontAwesomeIcon
-                      onClick={handleClick}
-                      className="h-6 w-6 block"
+                      className="h-6 w-6 block ml-3"
                       icon={faCartShopping}
                     />
-                    Cart
+                    <CartNavQuantity />
                   </div>
-                  {open && <Cart handleClick={handleClick} />}
                 </div>
               </nav>
               <GenreFilter />
             </div>
             <QueryClientProvider client={client}>
-              {children}
+              <div className=" z-10  left-[50%] -ml-[240px] absolute">
+                {isLoggingIn && (
+                  <Suspense>
+                    <Login setLogin={setLogin} />
+                  </Suspense>
+                )}
+              </div>
+              {isCartOpen && (
+                <Suspense>
+                  <Cart handleClick={handleClick} />
+                </Suspense>
+              )}
+              <div
+                onClick={closeCartAndLogin}
+                className={`${darknessStyle} min-h-[82vh]`}
+              >
+                {children}
+              </div>
             </QueryClientProvider>
           </main>
         </body>
