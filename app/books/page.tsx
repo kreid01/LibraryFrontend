@@ -2,7 +2,7 @@
 import { useInfiniteQuery } from "react-query";
 import { useState, useEffect } from "react";
 import "../globals.css";
-import { IBook } from "../consts/Interfaces";
+import { IBook } from "../assets/Interfaces";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";

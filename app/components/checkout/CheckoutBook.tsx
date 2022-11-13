@@ -1,5 +1,5 @@
 import React from "react";
-import { IBook } from "../../consts/Interfaces";
+import { IBook } from "../../assets/Interfaces";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,7 +21,11 @@ export const CheckoutBook: React.FC<Props> = ({ book }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    dispatch(deleteFromCart(book));
+    cart.some((book) => {
+      if (cart.includes(book)) {
+        dispatch(decrementFromCart(book));
+      }
+    });
   };
 
   const handleIncrement = () => {
@@ -39,9 +43,10 @@ export const CheckoutBook: React.FC<Props> = ({ book }) => {
       book.title === cartBook.title &&
       book.quality === cartBook.quality &&
       book.price === cartBook.price
-    )
+    ) {
       subtotal += book.price;
-    quantity++;
+      quantity++;
+    }
   });
 
   const condition =

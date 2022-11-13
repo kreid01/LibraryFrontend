@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useQuery } from "react-query";
-import { IBook } from "../../consts/Interfaces";
+import { IBook } from "../../assets/Interfaces";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { addToCart, addBorrowToCart } from "../../slices/cartSlice";

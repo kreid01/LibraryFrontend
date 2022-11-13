@@ -4,7 +4,7 @@ import { faArrowLeft, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { CartBook } from "./CartBook";
-import { IBook } from "../../consts/Interfaces";
+import { IBook } from "../../assets/Interfaces";
 import Link from "next/link";
 
 interface Props {
@@ -33,7 +33,7 @@ export const Cart: React.FC<Props> = ({ handleClick }) => {
   }, []);
 
   return (
-    <div className="w-[50vw] sm:w-[60vw] bg-white absolute h-[100vh] z-10 right-0 shadow-lg top-0">
+    <div className="w-[50vw] overflow-y-scroll sm:w-[60vw] bg-white absolute h-[100vh] z-10 right-0 shadow-lg top-0">
       <header className="bg-teal-600 h-12 text-white flex">
         <button className="ml-2" onClick={handleClick}>
           <FontAwesomeIcon icon={faArrowLeft} />

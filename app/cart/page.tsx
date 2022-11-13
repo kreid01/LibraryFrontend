@@ -2,7 +2,7 @@
 import React, { lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { IBook } from "../consts/Interfaces";
+import { IBook } from "../assets/Interfaces";
 import { CheckoutBook } from "../components/checkout/CheckoutBook";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +18,6 @@ export default function CartPage() {
     return acc + book.price;
   }, 0);
 
-  console.log(cart);
   const cartWithUniqueBooks = cart.reduce((acc: any, book) => {
     if (
       !acc.find(
@@ -72,11 +71,11 @@ export default function CartPage() {
           </p>
           <div className="text-sm border-b-[1px] py-2 border-blue-900 justify-between flex">
             <p>Subtotal</p>
-            <p className="font-bold text-teal-600">£{cartTotal}</p>
+            <p className="font-bold text-teal-600">£{cartTotal.toFixed(2)}</p>
           </div>
           <div className="border-b-[1px] py-2 font-bold border-blue-900 justify-between text-lg flex">
             <h4>Total</h4>
-            <p className=" text-teal-600">£{cartTotal}</p>
+            <p className=" text-teal-600">£{cartTotal.toFixed(2)}</p>
           </div>
         </div>
         {!isCheckingOut && (
