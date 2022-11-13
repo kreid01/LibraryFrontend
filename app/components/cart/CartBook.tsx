@@ -1,12 +1,8 @@
 import React from "react";
-import { IBook } from "../../consts/Interfaces";
+import { IBook } from "../../assets/Interfaces";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  deleteFromCart,
-  decrementFromCart,
-} from "../../slices/cartSlice";
+import { addToCart, decrementFromCart } from "../../slices/cartSlice";
 import { RootState } from "../../store/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +17,11 @@ export const CartBook: React.FC<Props> = ({ book }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    dispatch(deleteFromCart(book));
+    cart.map((book) => {
+      if (cart.includes(book)) {
+        dispatch(decrementFromCart(book));
+      }
+    });
   };
 
   const handleIncrement = (book: IBook) => {

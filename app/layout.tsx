@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import { SearchBar } from "./components/nav/SearchBar";
 import { GenreFilter } from "./components/nav/GenreFilter";
 import { TopNav } from "./components/nav/TopNav";
+import { CartNavQuantity } from "./components/cart/CartNavQuantity";
 
 const Login = lazy(() => import("./components/nav/Login"));
 const Cart = lazy(() => import("./components/cart/Cart"));
@@ -57,13 +58,15 @@ export default function RootLayout({
                     />
                   </Link>
                   <SearchBar />
-                  <div className="text-blue-900 font-bold ml-3 my-auto cursor-pointer">
+                  <div
+                    className="text-blue-900 font-bold ml-3 my-auto cursor-pointer"
+                    onClick={handleClick}
+                  >
                     <FontAwesomeIcon
-                      onClick={handleClick}
-                      className="h-6 w-6 block"
+                      className="h-6 w-6 block ml-3"
                       icon={faCartShopping}
                     />
-                    Cart
+                    <CartNavQuantity />
                   </div>
                 </div>
               </nav>

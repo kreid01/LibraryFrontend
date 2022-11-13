@@ -9,12 +9,10 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useState, lazy, Suspense } from "react";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 
 const Payment = lazy(() => import("./Payment"));
 
-type Address = {
+export type Address = {
   firstName: string;
   lastName: string;
   firstLine: string;
@@ -24,8 +22,6 @@ type Address = {
 };
 
 export const Checkout = () => {
-  const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
-
   const [address, setAddress] = useState<Address | null>(null);
   const onSubmit = (data: Address) => {
     setAddress(data);
@@ -35,7 +31,6 @@ export const Checkout = () => {
 
   const toggleIsPaying = () => {
     setIsPaying((prevState) => !prevState);
-    console.log(isPaying);
   };
 
   const { register, handleSubmit } = useForm<Address>({
@@ -173,9 +168,7 @@ export const Checkout = () => {
       )}
       {isPaying && (
         <Suspense fallback={<div>Loading...</div>}>
-          <Elements stripe={stripePromise}>
-            <Payment />
-          </Elements>
+          <Payment address={address} />
         </Suspense>
       )}
 

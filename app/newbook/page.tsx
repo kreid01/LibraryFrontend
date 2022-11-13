@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { IBook } from "../consts/Interfaces";
+import { IBook } from "../assets/Interfaces";
 import { useForm } from "react-hook-form";
 
 import {

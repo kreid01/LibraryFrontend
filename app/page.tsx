@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import axios from "axios";
-import { IBook } from "./consts/Interfaces";
+import { IBook } from "./assets/Interfaces";
 import { Book } from "./components/Book";
 import { useQuery } from "react-query";
 
