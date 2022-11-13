@@ -29,18 +29,25 @@ export const TopNav: React.FC<Props> = ({ setLogin }) => {
   }, [user]);
 
   const signoutUser = () => {
-    setUser({ token: null, userId: null, isAuth: false });
+    dispatch(
+      setUser({ token: null, userId: null, isAuth: false, isAdmin: false })
+    );
   };
 
   return (
     <nav className="w-[100vw] h-10 text-white font-medium bg-blue-400 flex justify-items-start">
       <div className="ml-auto text-md mr-6">
-        <Link className="mx-1" href="/newbook">
-          New Book |
-        </Link>
-        <Link className="mx-1" href="/admin">
-          Admin |
-        </Link>
+        {user.isAdmin && (
+          <>
+            {" "}
+            <Link className="mx-1" href="/newbook">
+              New Book |
+            </Link>
+            <Link className="mx-1" href="/admin">
+              Admin |
+            </Link>
+          </>
+        )}
         {user.isAuth ? (
           <>
             <Link className="mx-1" href="/account">

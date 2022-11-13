@@ -13,7 +13,7 @@ export const SearchBar = () => {
     <>
       <input
         onChange={(e) => handleChange(e)}
-        className="w-[60vw] rounded-l-md border-[1px] h-10 my-auto border-gray-300"
+        className="w-[45vw] mg:w-[60vw] rounded-l-md border-[1px] h-10 my-auto border-gray-300"
       ></input>
       <Button
         style={{

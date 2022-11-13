@@ -5,6 +5,7 @@ interface User {
     token: string | null;
     userId: number | null;
     isAuth?: boolean | null | undefined;
+    isAdmin: boolean | null | undefined;
   };
 }
 
@@ -13,6 +14,7 @@ const initialState: User = {
     token: null,
     userId: null,
     isAuth: null,
+    isAdmin: null,
   },
 };
 
@@ -20,6 +22,7 @@ export type JWT = {
   token: string | null;
   userId: number | null;
   isAuth?: boolean | null | undefined;
+  isAdmin: boolean | null | undefined;
 };
 
 export const userSlice = createSlice({

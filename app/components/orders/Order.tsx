@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IBook, IOrder } from "../assets/Interfaces";
+import { IBook, IOrder } from "../../assets/Interfaces";
 import axios from "axios";
 import { useQuery } from "react-query";
 import Link from "next/link";
@@ -29,7 +29,7 @@ export const Order: React.FC<Props> = ({ order }) => {
   let dateOfOrder = new Date(order.created).getTime();
 
   return (
-    <div className="ml-10 mb-3 border-b-[1px] border-blue-900 pb-3 w-[50vw]">
+    <div className="mb-3 border-b-[1px] border-blue-900 pb-3 w-[50vw]">
       <h1 className="font-semibold underline">
         Order from {order.created.substring(0, 7)}:
       </h1>
@@ -38,7 +38,7 @@ export const Order: React.FC<Props> = ({ order }) => {
           return (
             <div key={index}>
               <h2>{order.isBorrowing ? "Borrowed" : undefined}</h2>
-              <h2>Return in</h2>
+              {order.isBorrowing && <h2>Return in</h2>}
               <Link href={`/books/${book.id}`}>
                 {" "}
                 <span className="text-blue-900 font-bold">

@@ -8,26 +8,47 @@ import {
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
+import axios from "axios";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const Payment = lazy(() => import("./Payment"));
+
+const getAddress = async ({ queryKey }: any) => {
+  const { data } = await axios.get(
+    `https://localhost:7147/addresses/${queryKey[1]}`
+  );
+  return await data;
+};
 
 export type Address = {
   firstName: string;
   lastName: string;
-  firstLine: string;
-  secondLine: string;
+  addressLine1: string;
+  addressLine2: string;
   city: string;
   postcode: string;
 };
 
 export const Checkout = () => {
   const [address, setAddress] = useState<Address | null>(null);
+  const user = useSelector((state: RootState) => state.user.value);
+  const { data, isSuccess } = useQuery(["address", user.userId], getAddress);
   const onSubmit = (data: Address) => {
     setAddress(data);
     toggleIsPaying();
   };
   const [isPaying, setIsPaying] = useState(false);
+
+  console.log(address);
+  useEffect(() => {
+    if (isSuccess) {
+      setAddress(data);
+      setIsPaying(true);
+    }
+  }, [isSuccess]);
 
   const toggleIsPaying = () => {
     setIsPaying((prevState) => !prevState);
@@ -90,7 +111,7 @@ export const Checkout = () => {
                 >
                   <InputLabel htmlFor="firstLine">Address Line 1</InputLabel>
                   <OutlinedInput
-                    {...register("firstLine")}
+                    {...register("addressLine1")}
                     style={{ height: "55px" }}
                     id="firstLine"
                     label="Address Line 1"
@@ -108,7 +129,7 @@ export const Checkout = () => {
                 {" "}
                 <InputLabel htmlFor="secondLine">Address Line 2</InputLabel>
                 <OutlinedInput
-                  {...register("secondLine")}
+                  {...register("addressLine2")}
                   id="secondLine"
                   label="Address Line 2"
                   margin="dense"
@@ -180,7 +201,7 @@ export const Checkout = () => {
               {address.firstName} {address.lastName}
             </p>
             <p>
-              {address.firstLine} {address.secondLine}
+              {address.addressLine1} {address.addressLine2}
             </p>
             <p>{address.city}</p>
             <p>{address.postcode}</p>

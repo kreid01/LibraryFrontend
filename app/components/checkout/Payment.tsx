@@ -26,10 +26,11 @@ type Order = {
 };
 
 const postAddress = async (data: Address) => {
-  const { firstName, lastName, firstLine, secondLine, postcode, city } = data;
+  const { firstName, lastName, addressLine1, addressLine2, postcode, city } =
+    data;
   console.log(data);
   const { data: response } = await axios.post(
-    `https://localhost:7147/address?UserId=${1}&FirstName=${firstName}&LastName=${lastName}&AddressLine1=${firstLine}&AddressLine2=${secondLine}&Postcode=${postcode}&City=${city}`
+    `https://localhost:7147/address?UserId=${1}&FirstName=${firstName}&LastName=${lastName}&AddressLine1=${addressLine1}&AddressLine2=${addressLine2}&Postcode=${postcode}&City=${city}`
   );
   return response.data;
 };

@@ -47,8 +47,12 @@ export const Cart: React.FC<Props> = ({ handleClick }) => {
               className="text-lg font-bold w-[92%] ml-[4%] my-auto mt-4 bg-blue-900 h-12 text-white
              rounded-md px-5 hover:brightness-[60%]"
             >
-              <Link href="/cart" onClick={handleClick}>
-                <FontAwesomeIcon icon={faLock} /> Continue to Checkout
+              <Link href="/cart">
+                <div onClick={handleClick}>
+                  {" "}
+                  <FontAwesomeIcon icon={faLock} className="mr-2" />
+                  Continue to Checkout
+                </div>
               </Link>
             </button>
           </section>
