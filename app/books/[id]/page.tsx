@@ -194,20 +194,20 @@ export default function BookPage({ params }: any) {
       </div>
     </div>
   ) : (
-    <div className="w-[70vw] mx-auto">
-      <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex">
-        <img className="w-64 rounded-md" src={cover} alt="" />
-        <div className="font-bold ml-10">
+    <div className="w-[70vw] mx-auto  lg:w-[60vw]">
+      <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex flex-col md:flex-row">
+        <img className="w-72 rounded-md mx-auto md:w-64" src={cover} alt="" />
+        <div className="font-bold mx-auto">
           <h1 className="text-2xl text-blue-900">{title}</h1>
           <h3 className="text-2xl text-blue-500">{author}</h3>
-          <h2 className="mt-5 text-3xl ">£{price}</h2>
+          <h2 className="mt-2 md:mt-5 text-3xl ">£{price}</h2>
           <p className="text-sm font-normal">
             Condition -
             <span className="text-blue-500 font-bold">{condition}</span>
           </p>
           <button
             onClick={() => handleCartAdd(data as IBook)}
-            className=" hover:brightness-60 h-10 w-64 mt-12 bg-blue-900 rounded-md text-white"
+            className=" hover:brightness-60 h-10 w-64 mt-6 md:mt-12 bg-blue-900 rounded-md text-white"
           >
             Add to Cart
           </button>
@@ -224,7 +224,7 @@ export default function BookPage({ params }: any) {
           {user.isAdmin && (
             <button
               onClick={editBook}
-              className=" hover:brightness-60 h-10 w-64 mt-12 bg-blue-900 rounded-md text-white"
+              className=" hover:brightness-60 h-10 w-64 mt-6 md:mt-12 bg-blue-900 rounded-md text-white"
             >
               Edit
             </button>
