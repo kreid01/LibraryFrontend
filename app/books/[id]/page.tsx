@@ -8,6 +8,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { addToCart, addBorrowToCart } from "../../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { AvailableConditions } from "./AvailableCondition";
+import { Button } from "@material-ui/core";
 
 async function getBook({ queryKey }: any) {
   const { data } = await axios.get<IBook>(
@@ -41,7 +43,7 @@ const updateBook = async (data: IBook) => {
 
 export default function BookPage({ params }: any) {
   const dispatch = useDispatch();
-  const { data, status } = useQuery(["books", params.id], getBook);
+  const { data, status, isSuccess } = useQuery(["books", params.id], getBook);
   const { title, author, cover, price, quality, summary } =
     (data as IBook) || {};
   const user = useSelector((state: RootState) => state.user.value);
@@ -105,31 +107,31 @@ export default function BookPage({ params }: any) {
       : null;
 
   return isEditing ? (
-    <div className="w-[80vw] mx-auto md:w-[70vw] lg:w-[50vw]">
-      <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex">
-        <div className="flex-col lg:mx-20">
+    <div className="w-[70vw] mx-auto md:w-[80vw] lg:w-[55vw]">
+      <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex flex-col md:flex-row  mx-auto">
+        <div className="flex-col lg:mx-auto">
           <img
-            className="w-48 h-72 md:h-96 rounded-md md:w-64  lg:mx-auto"
+            className="w-48 h-72 md:h-96 rounded-md mx-auto md:w-64"
             src={bookToUpdate?.cover}
             alt=""
           />
           <input
-            className="text-xl text-blue-500 md:w-64 w-48 mt-3 h-7"
+            className="text-xl text-blue-500 mx-auto md:w-64 w-48 mt-3 h-7"
             name="cover"
             value={bookToUpdate?.cover}
             onChange={(e) => handleChange(e)}
           ></input>
         </div>
-        <div className="font-bold w-[40vw] ml-5">
-          <div className="flex flex-wrap">
+        <div className="font-bold md:ml-5 w-[70vw] md:w-[50vw] lg:w-[30vw] mx-auto ">
+          <div className="flex flex-wrap mx-auto">
             <input
-              className="text-2xl text-blue-900"
+              className="text-xl md:text-2xl w-full h-10 break-words  text-blue-900"
               name="title"
               value={bookToUpdate?.title}
               onChange={(e) => handleChange(e)}
             ></input>
             <input
-              className="text-2xl text-blue-500"
+              className="text-xl md:text-2xl  text-blue-500"
               name="author"
               value={bookToUpdate?.author}
               onChange={(e) => handleChange(e)}
@@ -139,7 +141,7 @@ export default function BookPage({ params }: any) {
             name="price"
             value={bookToUpdate?.price}
             onChange={(e) => handleChange(e)}
-            className="mt-1 md:mt-5 mb-1 text-2xl w-20"
+            className="mt-2 md:mt-5  text-2xl md:text-3xl "
           ></input>
           <div className="text-sm font-normal">
             Condition -
@@ -167,58 +169,73 @@ export default function BookPage({ params }: any) {
               <option value="Childrens">Childrens</option>
             </select>
           </div>
-
-          <button
-            onClick={deleteBook}
-            className=" hover:brightness-60 h-10 w-full mt-2 md:mt-12 bg-red-900 rounded-md text-white"
-          >
-            Delete
-          </button>
-          <button
-            onClick={editBook}
-            className=" hover:brightness-60 h-10 w-full mt-2 md:mt-6 bg-blue-900 rounded-md text-white"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={submitChanges}
-            className=" hover:brightness-60 h-10 w-full mt-2 md:mt-6 bg-blue-900 rounded-md text-white"
-          >
-            Submit Changes
-          </button>
+          <div className="mt-2 md:mt-12">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={deleteBook}
+              className="h-10 w-full  bg-red-900 rounded-md"
+            >
+              Delete
+            </Button>
+          </div>
+          <div className="mt-2 md:mt-6">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={editBook}
+              className=" h-10 w-full "
+            >
+              Cancel
+            </Button>
+          </div>
+          <div className="mt-2 md:mt-6">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={submitChanges}
+              className="h-10 w-full "
+            >
+              Submit Changes
+            </Button>
+          </div>
         </div>
       </div>
       <div>
         <h2 className=" border-y-[1px] py-2 text-lg mt-5 font-bold text-blue-900">
           {title} Summary
         </h2>
-        <p className="mt-3">{summary}</p>
+        <div className="mt-3">{summary}</div>
       </div>
     </div>
   ) : (
-    <div className="w-[80vw] mx-auto md:w-[70vw] lg:w-[50vw]">
-      <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex">
+    <div className="w-[70vw] mx-auto md:w-[80vw] lg:w-[55vw]">
+      <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex flex-col md:flex-row">
         <img
-          className="w-48 h-72 md:h-96 rounded-md md:w-64  lg:mx-auto"
+          className="w-56 h-80  md:h-96 rounded-md md:w-64 mx-auto lg:mx-auto"
           src={cover}
           alt=""
         />
-        <div className="font-bold ml-5">
-          <h1 className="text-xl md:text-2xl text-blue-900">
+        <div className="font-bold md:ml-5 flex flex-col w-full mx-auto md:">
+          <h1 className="text-xl md:text-2xl text-blue-900 mt-5 md:mt-0">
             {title} by <span className="text-blue-500">{author}</span>
           </h1>
           <h3 className="text-xl md:text-2xl  text-blue-500"></h3>
-          <h2 className="mt-2 md:mt-5  text-2xl md:text-3xl ">£{price}</h2>
+          <h2 className="mt-2 md:mt-5  text-2xl md:text-3xl">£{price}</h2>
           <div className="text-sm font-normal">
             Condition -
             <span className="text-blue-500 font-bold">{condition}</span>
           </div>
-          <button
-            onClick={() => handleCartAdd(data as IBook)}
-            className=" hover:brightness-60 h-10 w-full mt-3 md:mt-12 bg-blue-900 rounded-md text-white"
-          >
-            Add to Cart
-          </button>
+          <div className="mt-3 md:mt-12">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleCartAdd(data as IBook)}
+              className="h-10 w-full "
+            >
+              Add to Cart
+            </Button>
+          </div>
           <div>
             {" "}
             - or -{" "}
@@ -229,13 +246,18 @@ export default function BookPage({ params }: any) {
               Borrow
             </button>
           </div>
+          {isSuccess && <AvailableConditions book={data as IBook} />}
           {user.isAdmin && (
-            <button
-              onClick={editBook}
-              className=" hover:brightness-60 h-10 w-full mt-6 md:mt-12 bg-blue-900 rounded-md text-white"
-            >
-              Edit
-            </button>
+            <div className="mt-6">
+              <Button
+                onClick={editBook}
+                variant="contained"
+                color="primary"
+                className="  h-10 w-full "
+              >
+                Edit
+              </Button>
+            </div>
           )}
         </div>
       </div>
@@ -243,7 +265,7 @@ export default function BookPage({ params }: any) {
         <h2 className=" border-y-[1px] py-2 text-lg mt-5 font-bold text-blue-900">
           {title} Summary
         </h2>
-        <p className="mt-3">{summary}</p>
+        <div className="mt-3">{summary}</div>
       </div>
     </div>
   );
