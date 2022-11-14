@@ -71,7 +71,7 @@ export default function RegistrationForm() {
   });
   const { mutate, isLoading } = useMutation(createUser, {
     onSuccess: (data) => {
-      console.log(data);
+      router.push("/");
       const message = "success";
       alert(message);
     },

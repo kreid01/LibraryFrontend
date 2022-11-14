@@ -7,6 +7,7 @@ import { CheckoutBook } from "../components/checkout/CheckoutBook";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { Button } from "@material-ui/core";
 
 const Checkout = lazy(() => import("../components/checkout/Checkout"));
 
@@ -79,13 +80,17 @@ export default function CartPage() {
           </div>
         </div>
         {!isCheckingOut && (
-          <button
-            onClick={continueCheckout}
-            className="text-lg font-bold w-[92%] ml-[4%] my-auto mb-4 mt-4 bg-blue-900 h-12 text-white
-             rounded-md px-4 hover:brightness-[60%]"
-          >
-            <FontAwesomeIcon icon={faLock} /> Continue to Checkout
-          </button>
+          <div className=" ml-[4%]  mb-4 mt-4 ">
+            <Button
+              onClick={continueCheckout}
+              variant="contained"
+              className="w-[96%]"
+              color="primary"
+            >
+              <FontAwesomeIcon icon={faLock} className="mr-2" /> Continue to
+              Checkout
+            </Button>
+          </div>
         )}
       </section>
     </div>

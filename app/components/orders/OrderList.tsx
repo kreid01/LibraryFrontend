@@ -27,7 +27,6 @@ interface Props {
 export const OrderList: React.FC<Props> = ({ user }) => {
   const { data } = useQuery(["orders", user as JWT | User], getUserOrder);
 
-  console.log(user);
   return (
     <div>
       {data?.map((order: any) => {

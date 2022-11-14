@@ -5,7 +5,6 @@ import { OrderList } from "../components/orders/OrderList";
 
 export default function AccountPage() {
   const user = useSelector((state: RootState) => state.user.value);
-  console.log(user);
 
   return (
     <div className="mx-8 md:mx-16 ">

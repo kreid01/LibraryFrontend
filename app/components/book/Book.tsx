@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { IBook } from "../assets/Interfaces";
-import { addToCart } from "../slices/cartSlice";
+import { IBook } from "../../assets/Interfaces";
+import { addToCart } from "../../slices/cartSlice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { Button } from "@material-ui/core";
 
 export const Book = ({ book }: any) => {
   const { id, title, author, cover, price, quality } = book || {};
@@ -24,7 +25,7 @@ export const Book = ({ book }: any) => {
       : null;
 
   return (
-    <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium relative">
+    <div className="w-36 h-[47vh] mx-5 my-3 text-center font-medium relative">
       <Link href={`/books/${id}`}>
         {" "}
         <LazyLoadImage
@@ -39,13 +40,15 @@ export const Book = ({ book }: any) => {
       <h5 className="text-gray-500">{author}</h5>
       <p className="text-xs text-gray-400">{condition}</p>
       <p className="text-2xl text-blue-500">£{price}</p>
-      <button
-        onClick={() => handleCartAdd(book)}
-        className="bottom-1 left-0 absolute hover:brightness-60 h-10 w-36 mt-auto bg-blue-900
-         rounded-md text-white"
-      >
-        Add to Cart
-      </button>
+      <div className="bottom-1 left-0 absolute h-10 w-36">
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => handleCartAdd(book)}
+        >
+          Add to Cart
+        </Button>
+      </div>
     </div>
   );
 };
