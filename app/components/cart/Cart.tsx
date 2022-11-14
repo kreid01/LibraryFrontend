@@ -6,6 +6,7 @@ import { RootState } from "../../store/store";
 import { CartBook } from "./CartBook";
 import { IBook } from "../../assets/Interfaces";
 import Link from "next/link";
+import { Button } from "@material-ui/core";
 
 interface Props {
   handleClick: () => void;
@@ -42,10 +43,11 @@ export const Cart: React.FC<Props> = ({ handleClick }) => {
       </header>
       {cart.length > 0 ? (
         <div>
-          <section className="h-24 border-b-[1px] border-blue-900">
-            <button
-              className="text-lg font-bold w-[92%] ml-[4%] my-auto mt-4 bg-blue-900 h-12 text-white
-             rounded-md px-5 hover:brightness-[60%]"
+          <section className="h-24 border-b-[1px] border-blue-900 my-auto mt-4">
+            <Button
+              variant="contained"
+              style={{ marginLeft: "25px", width: "400px" }}
+              color="primary"
             >
               <Link href="/cart">
                 <div onClick={handleClick}>
@@ -54,7 +56,7 @@ export const Cart: React.FC<Props> = ({ handleClick }) => {
                   Continue to Checkout
                 </div>
               </Link>
-            </button>
+            </Button>
           </section>
           <section className="ml-8 font-bold mt-4  text-green-800">
             <h2 className=" text-xl">Your Order</h2>

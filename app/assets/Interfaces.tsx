@@ -12,6 +12,7 @@ export type IBook = {
   isAvailable?: boolean;
   cover: string;
   isBorrowing?: boolean;
+  currentOwnerId: number;
 };
 
 export type IOrder = {
@@ -22,4 +23,5 @@ export type IOrder = {
   created: string;
   addressId: string;
   cartTotal?: number;
+
 };

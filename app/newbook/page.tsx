@@ -168,7 +168,7 @@ export default function CreateBook() {
               name="genre"
             >
               <MenuItem value="Novel">Novel</MenuItem>
-              <MenuItem value="Non-fiction">Non-fiction</MenuItem>
+              <MenuItem value="Autobiography">Autobiography</MenuItem>
               <MenuItem value="Educational">Educational</MenuItem>
               <MenuItem value="Childrens">Chilrens</MenuItem>
             </Select>
