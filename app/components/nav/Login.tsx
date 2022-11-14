@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useForm } from "react-hook-form";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { JWT, setUser } from "../../slices/userSlice";
+import { setUser } from "../../slices/userSlice";
 import Link from "next/link";
 import axios from "axios";
 import {
@@ -21,10 +21,11 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface Props {
   setLogin: () => void;
+  closeCartAndLogin: () => void;
 }
 
 export type Login = {
@@ -36,10 +37,11 @@ const loginUser = async (user: Login) => {
   const { data: response } = await axios.post(
     `https://localhost:7147/login?Email=${user.email}&Password=${user.password}`
   );
+
   return response;
 };
 
-export const Login: React.FC<Props> = ({ setLogin }) => {
+export const Login: React.FC<Props> = ({ setLogin, closeCartAndLogin }) => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const queryClient = useQueryClient();
@@ -50,8 +52,7 @@ export const Login: React.FC<Props> = ({ setLogin }) => {
   const { mutate, isLoading } = useMutation(loginUser, {
     onSuccess: (data) => {
       dispatch(setUser({ ...data, isAuth: true }));
-      const message = "success";
-      alert(message);
+      closeCartAndLogin();
     },
     onError: () => {
       alert("there was an error");

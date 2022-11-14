@@ -76,7 +76,10 @@ export default function RootLayout({
               <div className=" z-10  left-[50%] -ml-[240px] absolute">
                 {isLoggingIn && (
                   <Suspense>
-                    <Login setLogin={setLogin} />
+                    <Login
+                      setLogin={setLogin}
+                      closeCartAndLogin={closeCartAndLogin}
+                    />
                   </Suspense>
                 )}
               </div>

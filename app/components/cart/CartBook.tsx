@@ -17,8 +17,8 @@ export const CartBook: React.FC<Props> = ({ book }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    cart.map((book) => {
-      if (cart.includes(book)) {
+    cart.map((cartBook) => {
+      if (cartBook.title === book.title) {
         dispatch(decrementFromCart(book));
       }
     });

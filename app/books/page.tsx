@@ -6,19 +6,22 @@ import { IBook } from "../assets/Interfaces";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { Book } from "../components/Book";
+import { Book } from "../components/book/Book";
+import { Select, MenuItem } from "@material-ui/core";
 
 type Query = {
   searchQuery: string;
   genreQuery: string;
+  sortQuery: string;
 };
 
 async function getBooks(queryKey: any, pageParam: number) {
-  const { searchQuery, genreQuery } = queryKey;
+  const { searchQuery, genreQuery, sortQuery } = queryKey;
   const { data } = await axios.get("https://localhost:7147/books", {
     params: {
       SearchQuery: searchQuery,
       GenreFilter: genreQuery,
+      SortFilter: sortQuery,
       PageNumber: pageParam,
       PageSize: 10,
     },
@@ -30,6 +33,7 @@ export default function BooksPage() {
   const [query, setQuery] = useState({
     searchQuery: "",
     genreQuery: "",
+    sortQuery: "",
   });
 
   useEffect(() => {
@@ -71,8 +75,36 @@ export default function BooksPage() {
     };
   }, [fetchNextPage, hasNextPage]);
 
+  const handleSortChange = (e: any) => {
+    setQuery((prevQuery) => ({
+      ...prevQuery,
+      sortQuery: e.target.value,
+    }));
+  };
+
   return (
     <div>
+      <div className="ml-5">
+        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Sort
+        </label>
+        <Select
+          variant="outlined"
+          margin="dense"
+          style={{ width: "250px" }}
+          className="appearance-none block h-10 w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          placeholder="Sort"
+          defaultValue=""
+          name="sort"
+          onChange={handleSortChange}
+        >
+          <MenuItem value="">None</MenuItem>
+          <MenuItem value="Price+">Price Ascending</MenuItem>
+          <MenuItem value="Price-">Price Descending</MenuItem>
+          <MenuItem value="Release+">Release Year Ascending</MenuItem>
+          <MenuItem value="Release-">Release Year Descending</MenuItem>
+        </Select>
+      </div>
       {status === "loading" ? (
         <p>Loading...</p>
       ) : (
@@ -82,13 +114,6 @@ export default function BooksPage() {
               data?.pages.map((page) =>
                 page.map((book) => <Book key={book.id} book={book} />)
               )}
-          </div>
-          <div className="ml-5">
-            {isFetchingNextPage
-              ? "Loading more..."
-              : hasNextPage
-              ? "Load More"
-              : "Nothing more to load"}
           </div>
           <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
         </div>

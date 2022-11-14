@@ -7,11 +7,11 @@ import { Suspense, useState, lazy } from "react";
 import { addToCart, addBorrowToCart } from "../../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { AvailableConditions } from "./AvailableCondition";
+import { AvailableConditions } from "../../components/book/AvailableCondition";
 import { Button } from "@material-ui/core";
-import { Quantity } from "./Quantity";
+import { Quantity } from "../../components/checkout/Quantity";
 
-const EditBook = lazy(() => import("./EditBook"));
+const EditBook = lazy(() => import("../../components/book/EditBook"));
 
 async function getBook({ queryKey }: any) {
   const { data } = await axios.get<IBook>(
