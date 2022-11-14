@@ -18,20 +18,26 @@ export default function AdminPage() {
     setOpen((prevState) => !prevState);
   };
   return (
-    <div className="mx-16">
+    <div className="mx-8 md:mx-16">
       <h1 className="font-bold ml-5 my-5 text-2xl text-blue-900">Admin</h1>
       <div className="ml-5">
         {isSuccess &&
           data.map((user: User) => {
             return (
               <div key={user.id}>
-                <div className="mb-3 flex justify-between border-b-[1px] border-blue-900 pb-3 w-[50vw]">
-                  <h2>
-                    {user.firstName} {user.lastName}
-                  </h2>
-                  <p>{user.email}</p>
-                  <Button style={{ marginTop: "-4px" }}>Delete User</Button>
-                  <button onClick={handleClick}>{open ? "-" : "+"}</button>
+                <div className="mb-3 flex justify-between border-b-[1px] border-blue-900 pb-3 w-96">
+                  <div>
+                    <h2>
+                      {user.firstName} {user.lastName}
+                    </h2>
+                    <p>{user.email}</p>
+                  </div>
+                  <div>
+                    <Button style={{ marginTop: "-4px" }}>Delete User</Button>
+                    <button className="mx-2" onClick={handleClick}>
+                      {open ? "-" : "+"}
+                    </button>
+                  </div>
                 </div>
                 {open && (
                   <div>

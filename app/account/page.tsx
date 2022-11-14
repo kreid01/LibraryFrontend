@@ -8,7 +8,7 @@ export default function AccountPage() {
   console.log(user);
 
   return (
-    <div className="mx-16  ">
+    <div className="mx-8 md:mx-16 ">
       {" "}
       <div className="ml-5">
         <h1 className="font-bold my-5 text-2xl text-blue-900">Account</h1>
