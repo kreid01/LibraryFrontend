@@ -105,41 +105,43 @@ export default function BookPage({ params }: any) {
       : null;
 
   return isEditing ? (
-    <div className="w-[70vw] mx-auto">
+    <div className="w-[80vw] mx-auto md:w-[70vw] lg:w-[50vw]">
       <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex">
-        <div className="flex-col">
+        <div className="flex-col lg:mx-20">
           <img
-            className="w-64 h-96 rounded-md"
+            className="w-48 h-72 md:h-96 rounded-md md:w-64  lg:mx-auto"
             src={bookToUpdate?.cover}
             alt=""
           />
           <input
-            className="text-xl text-blue-500 mt-3 h-7"
+            className="text-xl text-blue-500 md:w-64 w-48 mt-3 h-7"
             name="cover"
             value={bookToUpdate?.cover}
             onChange={(e) => handleChange(e)}
           ></input>
         </div>
-        <div className="font-bold ml-10">
-          <input
-            className="text-2xl text-blue-900"
-            name="title"
-            value={bookToUpdate?.title}
-            onChange={(e) => handleChange(e)}
-          ></input>
-          <input
-            className="text-2xl text-blue-500"
-            name="author"
-            value={bookToUpdate?.author}
-            onChange={(e) => handleChange(e)}
-          ></input>
+        <div className="font-bold w-[40vw] ml-5">
+          <div className="flex flex-wrap">
+            <input
+              className="text-2xl text-blue-900"
+              name="title"
+              value={bookToUpdate?.title}
+              onChange={(e) => handleChange(e)}
+            ></input>
+            <input
+              className="text-2xl text-blue-500"
+              name="author"
+              value={bookToUpdate?.author}
+              onChange={(e) => handleChange(e)}
+            ></input>
+          </div>
           <input
             name="price"
             value={bookToUpdate?.price}
             onChange={(e) => handleChange(e)}
-            className="mt-5 mb-1 text-3xl w-20"
+            className="mt-1 md:mt-5 mb-1 text-2xl w-20"
           ></input>
-          <p className="text-sm font-normal">
+          <div className="text-sm font-normal">
             Condition -
             <select
               name="quality"
@@ -151,8 +153,8 @@ export default function BookPage({ params }: any) {
               <option value="VG">Very good</option>
               <option value="N">New</option>
             </select>
-          </p>
-          <p className="text-sm font-normal">
+          </div>
+          <div className="text-sm font-normal">
             Genre -
             <select
               name="genre"
@@ -164,23 +166,23 @@ export default function BookPage({ params }: any) {
               <option value="Educational">Educational</option>
               <option value="Childrens">Childrens</option>
             </select>
-          </p>
+          </div>
 
           <button
             onClick={deleteBook}
-            className=" hover:brightness-60 h-10 w-64 mt-12 bg-red-900 rounded-md text-white"
+            className=" hover:brightness-60 h-10 w-full mt-2 md:mt-12 bg-red-900 rounded-md text-white"
           >
             Delete
           </button>
           <button
             onClick={editBook}
-            className=" hover:brightness-60 h-10 w-64 mt-6 bg-blue-900 rounded-md text-white"
+            className=" hover:brightness-60 h-10 w-full mt-2 md:mt-6 bg-blue-900 rounded-md text-white"
           >
             Cancel
           </button>
           <button
             onClick={submitChanges}
-            className=" hover:brightness-60 h-10 w-64 mt-6 bg-blue-900 rounded-md text-white"
+            className=" hover:brightness-60 h-10 w-full mt-2 md:mt-6 bg-blue-900 rounded-md text-white"
           >
             Submit Changes
           </button>
@@ -194,20 +196,26 @@ export default function BookPage({ params }: any) {
       </div>
     </div>
   ) : (
-    <div className="w-[70vw] mx-auto">
+    <div className="w-[80vw] mx-auto md:w-[70vw] lg:w-[50vw]">
       <div className="pt-10 pb-10 border-b-[1px] border-gray-300 flex">
-        <img className="w-64 rounded-md" src={cover} alt="" />
-        <div className="font-bold ml-10">
-          <h1 className="text-2xl text-blue-900">{title}</h1>
-          <h3 className="text-2xl text-blue-500">{author}</h3>
-          <h2 className="mt-5 text-3xl ">£{price}</h2>
-          <p className="text-sm font-normal">
+        <img
+          className="w-48 h-72 md:h-96 rounded-md md:w-64  lg:mx-auto"
+          src={cover}
+          alt=""
+        />
+        <div className="font-bold ml-5">
+          <h1 className="text-xl md:text-2xl text-blue-900">
+            {title} by <span className="text-blue-500">{author}</span>
+          </h1>
+          <h3 className="text-xl md:text-2xl  text-blue-500"></h3>
+          <h2 className="mt-2 md:mt-5  text-2xl md:text-3xl ">£{price}</h2>
+          <div className="text-sm font-normal">
             Condition -
             <span className="text-blue-500 font-bold">{condition}</span>
-          </p>
+          </div>
           <button
             onClick={() => handleCartAdd(data as IBook)}
-            className=" hover:brightness-60 h-10 w-64 mt-12 bg-blue-900 rounded-md text-white"
+            className=" hover:brightness-60 h-10 w-full mt-3 md:mt-12 bg-blue-900 rounded-md text-white"
           >
             Add to Cart
           </button>
@@ -216,7 +224,7 @@ export default function BookPage({ params }: any) {
             - or -{" "}
             <button
               onClick={() => handleBorrow(data as IBook)}
-              className="block text-blue-500"
+              className=" text-blue-500"
             >
               Borrow
             </button>
@@ -224,7 +232,7 @@ export default function BookPage({ params }: any) {
           {user.isAdmin && (
             <button
               onClick={editBook}
-              className=" hover:brightness-60 h-10 w-64 mt-12 bg-blue-900 rounded-md text-white"
+              className=" hover:brightness-60 h-10 w-full mt-6 md:mt-12 bg-blue-900 rounded-md text-white"
             >
               Edit
             </button>

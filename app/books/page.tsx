@@ -77,7 +77,7 @@ export default function BooksPage() {
         <p>Loading...</p>
       ) : (
         <div className="mx-5 w-[100vw]">
-          <div className="grid grid-cols-4 mx-auto mt-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 w-[85vw] lg:grid-cols-4 lg:w-[80vw] mx-auto mt-5">
             {isSuccess &&
               data?.pages.map((page) =>
                 page.map((book) => <Book key={book.id} book={book} />)

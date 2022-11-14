@@ -100,10 +100,10 @@ export default function RegistrationForm() {
 
   return (
     <>
-      <h1 className="font-bold ml-[82px] my-5 text-2xl text-blue-900">
+      <h1 className="font-bold md:ml-[82px] ml-10 my-5 text-2xl text-blue-900">
         Create an account
       </h1>
-      <div className="ml-[60px] w-[410px]">
+      <div className="md:ml-[60px] ml-5 w-[410px]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <FormControl

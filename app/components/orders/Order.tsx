@@ -29,7 +29,7 @@ export const Order: React.FC<Props> = ({ order }) => {
   let dateOfOrder = new Date(order.created).getTime();
 
   return (
-    <div className="mb-3 border-b-[1px] border-blue-900 pb-3 w-[50vw]">
+    <div className="mb-3 border-b-[1px] border-blue-900 pb-3 w-96">
       <h1 className="font-semibold underline">
         Order from {order.created.substring(0, 7)}:
       </h1>

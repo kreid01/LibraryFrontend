@@ -64,7 +64,7 @@ export const CheckoutBook: React.FC<Props> = ({ book }) => {
             <img
               src={cover}
               alt=""
-              className="h-56 rounded-md hover:brightness-60"
+              className="h-56 rounded-md hover:brightness-60 hidden md:block"
             />
           </Link>
           <div className="ml-4 text-sm font-medium -mr-4  text-blue-900">

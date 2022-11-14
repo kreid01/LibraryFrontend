@@ -37,7 +37,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="mx-24">
+    <div className="mx-8 md:mx-24 lg:mx-44">
       {!isCheckingOut ? (
         <>
           <h1 className="font-bold ml-5 my-5 text-2xl text-center text-blue-900">

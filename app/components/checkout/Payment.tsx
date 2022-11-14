@@ -138,8 +138,8 @@ export const Payment: React.FC<Props> = ({ address }) => {
     }
   }, [scriptLoaded]);
   return (
-    <div>
-      <div className="paypal--button" ref={paypal}></div>
+    <div className=" md:w-[50%]  w-full mx-auto">
+      <div ref={paypal}></div>
     </div>
   );
 };
