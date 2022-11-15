@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-import { JWT } from "../../slices/userSlice";
+import { JWT } from "../slices/userSlice";
 import { Order } from "./Order";
 import { IOrder } from "../../assets/Interfaces";
 import { User } from "../../registration/page";

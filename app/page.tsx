@@ -92,18 +92,18 @@ export default function HomePage() {
             alt=""
           />
         </div>
-        <h1 className="font-bold ml-5 my-5 text-2xl text-blue-900">
+        <h1 className="font-bold ml-11 my-5 text-2xl text-blue-900">
           Featured Books
         </h1>
-        <div className="border-b-[1px] border-blue-900 md:w-[60vw] ">
+        <div className="border-b-[1px] border-blue-900 md:w-[60vw] ml-11">
           <Slider {...settings}>
             {data && data?.map((book) => <Book key={book.id} book={book} />)}
           </Slider>
         </div>
-        <h1 className="font-bold ml-5 my-5 text-2xl text-blue-900">
+        <h1 className="my-5 text-2xl text-blue-900 font-bold  ml-11">
           Best Sellers
         </h1>
-        <div className="border-b-[1px] border-blue-900  md:w-[60vw] ">
+        <div className="border-b-[1px] border-blue-900  md:w-[60vw] ml-11 ">
           <Slider {...settings}>
             {autobiography &&
               autobiography?.map((book) => <Book key={book.id} book={book} />)}

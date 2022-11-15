@@ -5,7 +5,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { setUser } from "../../slices/userSlice";
+import { setUser } from "../slices/userSlice";
 import Link from "next/link";
 import axios from "axios";
 import {

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 import Link from "next/link";
-import { handleSearchChange } from "../../slices/filterSlice";
+import { handleSearchChange } from "../slices/filterSlice";
 
 export const SearchBar = () => {
   const dispatch = useDispatch();

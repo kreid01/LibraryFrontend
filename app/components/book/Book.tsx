@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { IBook } from "../../assets/Interfaces";
-import { addToCart } from "../../slices/cartSlice";
+import { addToCart } from "../slices/cartSlice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Button } from "@material-ui/core";

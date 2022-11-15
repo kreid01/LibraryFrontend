@@ -2,7 +2,7 @@ import React from "react";
 import { IBook } from "../../assets/Interfaces";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, decrementFromCart } from "../../slices/cartSlice";
+import { addToCart, decrementFromCart } from "../slices/cartSlice";
 import { RootState } from "../../store/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";

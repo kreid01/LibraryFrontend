@@ -2,7 +2,7 @@ import Link from "next/link";
 import { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setUser } from "../../slices/userSlice";
+import { setUser } from "../slices/userSlice";
 
 interface Props {
   setLogin: () => void;

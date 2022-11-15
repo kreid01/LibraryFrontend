@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { emptyCart } from "../../slices/cartSlice";
+import { emptyCart } from "../slices/cartSlice";
 import { RootState } from "../../store/store";
 import { useRouter } from "next/navigation";
 

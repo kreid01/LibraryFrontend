@@ -4,7 +4,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { IBook } from "../../assets/Interfaces";
 import { Suspense, useState, lazy } from "react";
-import { addToCart, addBorrowToCart } from "../../slices/cartSlice";
+import { addToCart, addBorrowToCart } from "../../components/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { AvailableConditions } from "../../components/book/AvailableCondition";
