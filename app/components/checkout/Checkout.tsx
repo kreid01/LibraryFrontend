@@ -42,7 +42,6 @@ export const Checkout = () => {
   };
   const [isPaying, setIsPaying] = useState(false);
 
-  console.log(address);
   useEffect(() => {
     if (isSuccess) {
       setAddress(data);

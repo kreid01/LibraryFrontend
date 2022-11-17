@@ -18,8 +18,16 @@ export default function AdminPage() {
     setOpen((prevState) => !prevState);
   };
   return (
+<<<<<<< Updated upstream
     <div className="mx-8 md:mx-16">
       <h1 className="font-bold ml-5 my-5 text-2xl text-blue-900">Admin</h1>
+=======
+    <div className="mx-8 pt-5 md:mx-16">
+      <div className="ml-5 flex justify-around font-bold text-2xl text-blue-900 mb-5">
+        <button onClick={() => setIsViewingUsers(true)}>User</button>
+        <button onClick={() => setIsViewingUsers(false)}>Books</button>
+      </div>
+>>>>>>> Stashed changes
       <div className="ml-5">
         {isSuccess &&
           data.map((user: User) => {

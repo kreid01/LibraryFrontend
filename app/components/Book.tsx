@@ -24,7 +24,11 @@ export const Book = ({ book }: any) => {
       : null;
 
   return (
+<<<<<<< Updated upstream:app/components/Book.tsx
     <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium relative">
+=======
+    <div className="w-40 h-[47vh] mx-5 my-3 text-center font-medium relative">
+>>>>>>> Stashed changes:app/components/book/Book.tsx
       <Link href={`/books/${id}`}>
         {" "}
         <LazyLoadImage
@@ -35,7 +39,7 @@ export const Book = ({ book }: any) => {
           alt=""
         />
       </Link>
-      <h2 className="mb-3">{title}</h2>
+      <h2 className="mb-3 h-16 w-40">{title}</h2>
       <h5 className="text-gray-500">{author}</h5>
       <p className="text-xs text-gray-400">{condition}</p>
       <p className="text-2xl text-blue-500">£{price}</p>

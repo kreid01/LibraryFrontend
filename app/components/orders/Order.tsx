@@ -29,10 +29,28 @@ export const Order: React.FC<Props> = ({ order }) => {
   let dateOfOrder = new Date(order.created).getTime();
 
   return (
+<<<<<<< Updated upstream
     <div className="mb-3 border-b-[1px] border-blue-900 pb-3 w-96">
       <h1 className="font-semibold underline">
         Order from {order.created.substring(0, 7)}:
       </h1>
+=======
+    <div className="mb-3 border-b-[1px] border-blue-900 pb-3 w-96 md:w-[50vw]">
+      <header className="flex justify-between">
+        <div className="font-semibold underline">
+          {" "}
+          Order from {order.created.substring(0, 10)}:
+        </div>
+        {user.isAdmin && (
+          <button onClick={handleOrderCancel}>Cancel Order</button>
+        )}
+      </header>
+      <h2>
+        {order.isBorrowing
+          ? `Borrowed, return in ${Math.floor(21 - orderDate)} days`
+          : null}{" "}
+      </h2>
+>>>>>>> Stashed changes
       {isSuccess &&
         data.map((book, index) => {
           return (

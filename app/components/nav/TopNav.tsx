@@ -35,7 +35,7 @@ export const TopNav: React.FC<Props> = ({ setLogin }) => {
   };
 
   return (
-    <nav className="w-[100vw] h-10 text-white font-medium bg-blue-400 flex justify-items-start">
+    <nav className="w-[100vw] h-10 text-white font-medium bg-gradient-to-r from-cyan-500 to-blue-500 flex justify-items-start">
       <div className="ml-auto text-md mr-6">
         {user.isAdmin && (
           <>

@@ -10,8 +10,8 @@ export const GenreFilter: React.FC = () => {
   };
 
   return (
-    <div className="mt-[15px] -mb-5 pl-5 pb-10">
-      <div className="flex justify-around">
+    <div className="mt-[15px] pl-5 pb-[14px] border-b-2  ">
+      <div className="flex justify-around evenly">
         <li className="list-none">
           <Link href="/books">
             <input
@@ -23,7 +23,10 @@ export const GenreFilter: React.FC = () => {
               onChange={handleChange}
             />
           </Link>
-          <label className="profile-link" htmlFor="Novel">
+          <label
+            className="profile-link border-b-2 border-red-200"
+            htmlFor="Novel"
+          >
             Novels
           </label>
         </li>
@@ -38,7 +41,10 @@ export const GenreFilter: React.FC = () => {
               onChange={handleChange}
             />
           </Link>
-          <label htmlFor="Autobiography" className="profile-link">
+          <label
+            htmlFor="Autobiography"
+            className="profile-link border-b-2 border-orange-200"
+          >
             Autobiographies
           </label>
         </li>
@@ -53,7 +59,10 @@ export const GenreFilter: React.FC = () => {
               onChange={handleChange}
             />
           </Link>
-          <label className="profile-link" htmlFor="Educational">
+          <label
+            className="profile-link border-b-2 border-fuchsia-300"
+            htmlFor="Educational"
+          >
             Educational
           </label>
         </li>
@@ -68,7 +77,10 @@ export const GenreFilter: React.FC = () => {
               onChange={handleChange}
             />
           </Link>
-          <label className="profile-link" htmlFor="Childrens">
+          <label
+            className="profile-link  border-b-2 border-yellow-200"
+            htmlFor="Childrens"
+          >
             Childrens
           </label>
         </li>
