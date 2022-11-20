@@ -19,10 +19,6 @@ async function getBooks() {
   return data as IBook[];
 }
 
-<<<<<<< Updated upstream
-export default function HomePage() {
-  const { data } = useQuery("books", getBooks);
-=======
 async function getAutobiographies() {
   const { data } = await axios.get("https://localhost:7147/books", {
     params: {
@@ -49,13 +45,12 @@ export default function HomePage() {
   const { data } = useQuery("books", getBooks);
   const { data: autobiography } = useQuery("autos", getAutobiographies);
   const { data: education } = useQuery("education", getEducational);
->>>>>>> Stashed changes
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
     responsive: [
@@ -69,15 +64,9 @@ export default function HomePage() {
         },
       },
       {
-<<<<<<< Updated upstream
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 3,
-=======
         breakpoint: 1200,
         settings: {
           slidesToShow: 4,
->>>>>>> Stashed changes
           slidesToScroll: 1,
           infinite: true,
           dots: true,
@@ -87,17 +76,6 @@ export default function HomePage() {
   };
 
   return (
-<<<<<<< Updated upstream
-    <div className="w-[90vw] mx-5 md:mx-10 lg:mx-20">
-      <h1 className="font-bold ml-5 my-5 text-2xl text-blue-900">
-        Featured Books
-      </h1>
-      <Slider {...settings}>
-        {data?.map((book) => (
-          <Book key={book.id} book={book} />
-        ))}
-      </Slider>
-=======
     <div className="w-[100vw] lg:w-[80vw] mx-auto">
       <div className="mx-auto pt-5 -ml-5 ">
         <div className="mb-5 border-b-[1px] border-blue-900 pb-8 mx-auto">
@@ -134,13 +112,12 @@ export default function HomePage() {
         <h1 className="my-5 text-2xl md:ml-[78px] text-center  md:text-left  text-blue-900 font-bold">
           Site Favourites
         </h1>
-        <div className="border-b-[1px] mx-auto h-[55vh]  border-blue-900 md:w-[85vw]">
+        <div className="border-b-[1px] mx-auto h-[55vh] overflow-y-hidden  border-blue-900 md:w-[85vw]">
           <Slider {...settings}>
             {data && data?.map((book) => <Book key={book.id} book={book} />)}
           </Slider>
         </div>
       </div>
->>>>>>> Stashed changes
     </div>
   );
 }

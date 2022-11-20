@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { useRouter, Router } from "next/router";
 import { Address } from "./Checkout";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import { emptyCart } from "../../slices/cartSlice";
+import { UpdateDatabase } from "./UpdateDatabase";
+import { useRouter } from "next/navigation";
 
 declare global {
   interface Window {
@@ -28,7 +28,6 @@ type Order = {
 const postAddress = async (data: Address) => {
   const { firstName, lastName, addressLine1, addressLine2, postcode, city } =
     data;
-  console.log(data);
   const { data: response } = await axios.post(
     `https://localhost:7147/address?UserId=${1}&FirstName=${firstName}&LastName=${lastName}&AddressLine1=${addressLine1}&AddressLine2=${addressLine2}&Postcode=${postcode}&City=${city}`
   );
@@ -44,14 +43,13 @@ const postOrder = async (data: Order) => {
 };
 
 export const Payment: React.FC<Props> = ({ address }) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
   const paypal = useRef<HTMLDivElement>(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [addressId, setAddressId] = useState<number>();
   const cart = useSelector((state: RootState) => state.cart.value);
   const user = useSelector((state: RootState) => state.user.value);
-  const router = useRouter();
   const cartTotal = cart.reduce((acc, book) => {
     return acc + book.price;
   }, 0);
@@ -81,10 +79,8 @@ export const Payment: React.FC<Props> = ({ address }) => {
     },
   });
 
-  const { mutateAsync } = useMutation(postOrder, {
-    onSuccess: (data) => {
-      dispatch(emptyCart());
-    },
+  const { mutateAsync, isSuccess } = useMutation(postOrder, {
+    onSuccess: (data) => {},
     onError: () => {
       alert("there was an error");
     },
@@ -128,7 +124,7 @@ export const Payment: React.FC<Props> = ({ address }) => {
             mutate(address as Address);
           },
           onCancel: async (data: any, action: any) => {
-            router.push("/home");
+            router.push("/");
           },
           onError: (err: any) => {
             console.log(err);
@@ -139,6 +135,7 @@ export const Payment: React.FC<Props> = ({ address }) => {
   }, [scriptLoaded]);
   return (
     <div className=" md:w-[50%]  w-full mx-auto">
+      <UpdateDatabase isSuccess={isSuccess} />
       <div ref={paypal}></div>
     </div>
   );

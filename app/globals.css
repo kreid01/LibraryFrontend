@@ -6,7 +6,7 @@
 
 @layer components {
     .profile-link {
-        @apply hover:bg-slate-100 px-[74px] py-4 md:px-[102px] font-bold text-gray-500 peer-checked:text-black
+        @apply hover:bg-slate-100 px-[74px] py-4 md:px-[102px] lg:px-[160px] font-bold text-gray-500 peer-checked:text-black
         peer-checked:border-b-4 peer-checked:border-b-blue-400 cursor-pointer;
       }
 }

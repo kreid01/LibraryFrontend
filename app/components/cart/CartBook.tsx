@@ -17,13 +17,13 @@ export const CartBook: React.FC<Props> = ({ book }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    cart.map((book) => {
-      if (cart.includes(book)) {
+    cart.map((cartBook) => {
+      if (cartBook.title === book.title) {
         dispatch(decrementFromCart(book));
       }
     });
   };
-
+  
   const handleIncrement = (book: IBook) => {
     dispatch(addToCart(book));
   };
@@ -59,7 +59,7 @@ export const CartBook: React.FC<Props> = ({ book }) => {
         <img
           src={cover}
           alt=""
-          className="h-56 w-40 hidden md:visible rounded-md hover:brightness-60"
+          className="h-56 w-40 md:visible rounded-md hover:brightness-60"
         />
       </Link>
       <div className="ml-4 text-sm font-medium -mr-4 w-[80%]  text-blue-900">

@@ -4,6 +4,7 @@ import { IBook } from "../assets/Interfaces";
 import { addToCart } from "../slices/cartSlice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { Button } from "@material-ui/core";
 
 export const Book = ({ book }: any) => {
   const { id, title, author, cover, price, quality } = book || {};
@@ -24,11 +25,7 @@ export const Book = ({ book }: any) => {
       : null;
 
   return (
-<<<<<<< Updated upstream:app/components/Book.tsx
-    <div className="w-36 h-[45vh] mx-5 my-3 text-center font-medium relative">
-=======
-    <div className="w-40 h-[47vh] mx-5 my-3 text-center font-medium relative">
->>>>>>> Stashed changes:app/components/book/Book.tsx
+    <div className="w-36 h-[50vh] mx-5 my-3 text-center overflow-y-hidden font-medium relative">
       <Link href={`/books/${id}`}>
         {" "}
         <LazyLoadImage
@@ -39,17 +36,22 @@ export const Book = ({ book }: any) => {
           alt=""
         />
       </Link>
-      <h2 className="mb-3 h-16 w-40">{title}</h2>
-      <h5 className="text-gray-500">{author}</h5>
-      <p className="text-xs text-gray-400">{condition}</p>
-      <p className="text-2xl text-blue-500">£{price}</p>
-      <button
-        onClick={() => handleCartAdd(book)}
-        className="bottom-1 left-0 absolute hover:brightness-60 h-10 w-36 mt-auto bg-blue-900
-         rounded-md text-white"
-      >
-        Add to Cart
-      </button>
+      <h2>{title}</h2>
+
+      <div className="bottom-24 left-0 absolute h-10 w-36">
+        <div className="mb-2">
+          <h5 className="text-gray-500">{author}</h5>
+          <p className="text-xs text-gray-400">{condition}</p>
+          <p className="text-2xl text-blue-500">£{price}</p>
+        </div>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => handleCartAdd(book)}
+        >
+          Add to Cart
+        </Button>
+      </div>
     </div>
   );
 };
